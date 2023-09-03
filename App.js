@@ -1,42 +1,24 @@
 import { StatusBar } from "expo-status-bar";
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Image,
-  ImageBackground,
-  Switch,
-  TextInput,
-  Alert,
-} from "react-native";
-
+import { StyleSheet, View, ImageBackground } from "react-native";
+import BackImage from "./src/Img/img1.png";
+import { RegistrationScreen } from "./src/Screens/RegistrationScreen/RegistrationScreen";
+import { LoginScreen } from "./src/Screens/LoginScreen/LoginScreen";
 export default function App() {
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          // Try setting `flexDirection` to `"row"`.
-          flexDirection: "column",
-        },
-      ]}
-    >
-      <View style={{ flex: 1, backgroundColor: "red" }} />
-      <View style={{ flex: 4, backgroundColor: "darkorange" }} />
-      <View style={{ flex: 4, backgroundColor: "green" }} />
+    <View style={styles.container}>
+      <ImageBackground
+        source={BackImage}
+        resizeMode="cover"
+        style={{ width: "100%", height: "100%" }}
+      >
+        <RegistrationScreen />
+      </ImageBackground>
     </View>
-    // </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-
-    backgroundColor: "#fff",
-    // alignItems: "center",
-    // justifyContent: "center",
+    flexGrow: 1,
   },
 });
