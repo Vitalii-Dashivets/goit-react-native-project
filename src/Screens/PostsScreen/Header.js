@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 17,
+    fontFamily: "Roboto-500",
   },
   textbox: {
     width: 175,

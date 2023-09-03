@@ -46,8 +46,9 @@ const stylesLog = StyleSheet.create({
     fontSize: 16,
     marginTop: 16,
     lineHeight: 19,
-    fontWeight: "bold",
+    // fontWeight: "bold",
     textAlign: "center",
+    fontFamily: "Roboto-400",
   },
   title: {
     color: "black",
@@ -55,6 +56,7 @@ const stylesLog = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 16,
+    fontFamily: "Roboto-500",
   },
   textInput: {
     width: "100%",
@@ -74,10 +76,12 @@ const stylesLog = StyleSheet.create({
     justifyContent: "center",
     marginTop: 43,
     borderRadius: 27,
+    fontFamily: "Roboto-400",
   },
   btnText: {
     fontSize: 16,
     color: "white",
+    fontFamily: "Roboto-400",
   },
   btnAdd: {
     position: "absolute",
