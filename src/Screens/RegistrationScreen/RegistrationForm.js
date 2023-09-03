@@ -79,14 +79,15 @@ const stylesReg = StyleSheet.create({
     fontSize: 16,
     marginTop: 16,
     lineHeight: 19,
-    fontWeight: "bold",
+    // fontWeight: "bold",
     textAlign: "center",
+    fontFamily: "Roboto-400",
   },
   title: {
     color: "black",
     fontSize: 36,
-
-    fontWeight: "bold",
+    fontFamily: "Roboto-500",
+    // fontWeight: "bold",
     textAlign: "center",
     marginBottom: 16,
   },
@@ -113,6 +114,7 @@ const stylesReg = StyleSheet.create({
   btnText: {
     fontSize: 16,
     color: "white",
+    fontFamily: "Roboto-400",
   },
   btnAdd: {
     position: "absolute",

@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     // height: "100%",
-    backgroundColor: "red",
+    backgroundColor: "white",
     flexDirection: "row",
     alignItems: "flex-start",
     justifyContent: "flex-start",
@@ -63,11 +63,13 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 13,
     // fontWeight: 700,
+    fontFamily: "Roboto-700",
     lineHeight: 15,
   },
   email: {
     fontSize: 11,
     // fontWeight: 400,
+    fontFamily: "Roboto-400",
     lineHeight: 13,
   },
   image: {
