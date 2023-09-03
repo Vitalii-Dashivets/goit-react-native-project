@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 import * as React from "react";
-import BtnAdd from "../../Img/Union.svg";
+import BtnAdd from "../../Img/Union1.svg";
 
 export const RegistrationForm = () => {
   const [name, setName] = React.useState("");
