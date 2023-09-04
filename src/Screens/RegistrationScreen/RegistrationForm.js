@@ -16,13 +16,18 @@ export const RegistrationForm = () => {
   const [password, setPassword] = React.useState("");
   return (
     <View style={stylesReg.box}>
-      <Image
-        source={{ uri: "https://reactjs.org/logo-og.png" }}
-        style={stylesReg.image}
-      ></Image>
-      <Pressable style={stylesReg.btnAdd}>
-        <BtnAdd width={13} height={13} />
-      </Pressable>
+      <View style={stylesReg.imageContainer}>
+        <View style={stylesReg.imageBox}>
+          <Image
+            source={{ uri: "https://reactjs.org/logo-og.png" }}
+            style={stylesReg.image}
+          ></Image>
+          <Pressable style={stylesReg.btnAdd}>
+            <BtnAdd width={13} height={13} />
+          </Pressable>
+        </View>
+      </View>
+
       <Text style={stylesReg.title}>Реєстрація</Text>
       <TextInput
         style={stylesReg.textInput}
@@ -51,24 +56,33 @@ export const RegistrationForm = () => {
 };
 const stylesReg = StyleSheet.create({
   box: {
+    position: "relative",
     justifyContent: "flex-end",
+    alignItems: "center",
     paddingTop: 92,
     paddingLeft: 16,
     paddingRight: 16,
-    paddingBottom: 78,
+    paddingBottom: 20,
     backgroundColor: "white",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     width: "100%",
   },
+  imageContainer: {
+    width: "100%",
+    position: "absolute",
+    alignItems: "center",
 
-  image: {
+    top: -60,
+  },
+  imageBox: {
     width: 120,
     height: 120,
-    position: "absolute",
-    top: -60,
-    left: "50%",
-    transform: [{ translateX: -40 }],
+    position: "relative",
+  },
+  image: {
+    width: "100%",
+    height: "100%",
     borderRadius: 16,
   },
   text: {
@@ -76,7 +90,6 @@ const stylesReg = StyleSheet.create({
     fontSize: 16,
     marginTop: 16,
     lineHeight: 19,
-
     textAlign: "center",
     fontFamily: "Roboto-400",
   },
@@ -99,6 +112,7 @@ const stylesReg = StyleSheet.create({
     fontSize: 20,
   },
   button: {
+    width: "100%",
     backgroundColor: "#FF6C00",
     paddingVertical: 16,
     alignItems: "center",
@@ -113,10 +127,10 @@ const stylesReg = StyleSheet.create({
   },
   btnAdd: {
     position: "absolute",
-    top: 21,
-    left: 258,
-    width: 25,
-    height: 25,
+    bottom: 14,
+    right: -12,
+    width: 24,
+    height: 24,
     borderRadius: 12,
     borderWidth: 1,
     borderColor: "#FF6C00",
