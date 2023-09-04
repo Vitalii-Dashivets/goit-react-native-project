@@ -29,16 +29,15 @@ export const LoginForm = () => {
 };
 const stylesLog = StyleSheet.create({
   box: {
-    top: 323,
+    justifyContent: "flex-end",
     paddingTop: 16,
     paddingLeft: 16,
     paddingRight: 16,
-    flexGrow: 1,
+    paddingBottom: 144,
     backgroundColor: "white",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     width: "100%",
-    height: "100%",
   },
 
   text: {
@@ -46,7 +45,6 @@ const stylesLog = StyleSheet.create({
     fontSize: 16,
     marginTop: 16,
     lineHeight: 19,
-    // fontWeight: "bold",
     textAlign: "center",
     fontFamily: "Roboto-400",
   },

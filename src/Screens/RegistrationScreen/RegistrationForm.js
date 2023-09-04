@@ -51,17 +51,15 @@ export const RegistrationForm = () => {
 };
 const stylesReg = StyleSheet.create({
   box: {
-    position: "relative",
-    top: 263,
+    justifyContent: "flex-end",
     paddingTop: 92,
     paddingLeft: 16,
     paddingRight: 16,
-    flexGrow: 1,
+    paddingBottom: 78,
     backgroundColor: "white",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     width: "100%",
-    height: "100%",
   },
 
   image: {
@@ -69,7 +67,6 @@ const stylesReg = StyleSheet.create({
     height: 120,
     position: "absolute",
     top: -60,
-    zIndex: 5,
     left: "50%",
     transform: [{ translateX: -40 }],
     borderRadius: 16,
@@ -79,7 +76,7 @@ const stylesReg = StyleSheet.create({
     fontSize: 16,
     marginTop: 16,
     lineHeight: 19,
-    // fontWeight: "bold",
+
     textAlign: "center",
     fontFamily: "Roboto-400",
   },
@@ -87,7 +84,6 @@ const stylesReg = StyleSheet.create({
     color: "black",
     fontSize: 36,
     fontFamily: "Roboto-500",
-    // fontWeight: "bold",
     textAlign: "center",
     marginBottom: 16,
   },
@@ -104,7 +100,6 @@ const stylesReg = StyleSheet.create({
   },
   button: {
     backgroundColor: "#FF6C00",
-
     paddingVertical: 16,
     alignItems: "center",
     justifyContent: "center",
@@ -118,7 +113,6 @@ const stylesReg = StyleSheet.create({
   },
   btnAdd: {
     position: "absolute",
-    zIndex: 10,
     top: 21,
     left: 258,
     width: 25,
