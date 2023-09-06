@@ -4,6 +4,21 @@ import * as React from "react";
 export const LoginForm = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [state, dispatch] = React.useReducer(reducer, {
+    email: email,
+    password: password,
+  });
+  React.useEffect(() => {
+    console.log(state);
+  }, [state]);
+  function reducer(state, action) {
+    if (action.type === "submitForm") {
+      return { ...state, email: email, password: password };
+    }
+  }
+  const onLogin = () => {
+    return dispatch({ type: "submitForm" });
+  };
   return (
     <View style={stylesLog.box}>
       <Text style={stylesLog.title}>Увійти</Text>
@@ -11,16 +26,16 @@ export const LoginForm = () => {
       <TextInput
         style={stylesLog.textInput}
         value={email}
-        onChange={setEmail}
+        onChangeText={setEmail}
         placeholder="Адреса електронної пошти"
       />
       <TextInput
         style={stylesLog.textInput}
         value={password}
-        onChange={setPassword}
+        onChangeText={setPassword}
         placeholder="Пароль"
       />
-      <Pressable style={stylesLog.button}>
+      <Pressable style={stylesLog.button} onPress={onLogin}>
         <Text style={stylesLog.btnText}>Увійти</Text>
       </Pressable>
       <Text style={stylesLog.text}>Немає акаунту? Зареєструватися</Text>
