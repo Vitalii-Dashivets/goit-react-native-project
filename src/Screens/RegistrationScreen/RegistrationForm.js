@@ -5,6 +5,8 @@ import {
   TextInput,
   View,
   Pressable,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 
 import * as React from "react";
@@ -14,6 +16,22 @@ export const RegistrationForm = () => {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [state, dispatch] = React.useReducer(reducer, {
+    name: name,
+    email: email,
+    password: password,
+  });
+  React.useEffect(() => {
+    console.log(state);
+  }, [state]);
+  function reducer(state, action) {
+    if (action.type === "submitForm") {
+      return { name: name, email: email, password: password };
+    }
+  }
+  const onRegister = () => {
+    return dispatch({ type: "submitForm" });
+  };
   return (
     <View style={stylesReg.box}>
       <View style={stylesReg.imageContainer}>
@@ -29,27 +47,36 @@ export const RegistrationForm = () => {
       </View>
 
       <Text style={stylesReg.title}>Реєстрація</Text>
-      <TextInput
-        style={stylesReg.textInput}
-        value={name}
-        onChange={setName}
-        placeholder="Логін"
-      />
-      <TextInput
-        style={stylesReg.textInput}
-        value={email}
-        onChange={setEmail}
-        placeholder="Адреса електронної пошти"
-      />
-      <TextInput
-        style={stylesReg.textInput}
-        value={password}
-        onChange={setPassword}
-        placeholder="Пароль"
-      />
-      <Pressable style={stylesReg.button}>
-        <Text style={stylesReg.btnText}>Зареєструватися</Text>
-      </Pressable>
+      <View style={stylesReg.inputBox}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS == "ios" ? "padding" : "height"}
+        >
+          <TextInput
+            style={stylesReg.textInput}
+            value={name}
+            onChangeText={setName}
+            placeholder="Логін"
+          />
+
+          <TextInput
+            style={stylesReg.textInput}
+            value={email}
+            onChangeText={setEmail}
+            placeholder="Адреса електронної пошти"
+          />
+
+          <TextInput
+            style={stylesReg.textInput}
+            value={password}
+            onChangeText={setPassword}
+            placeholder="Пароль"
+          />
+
+          <Pressable style={stylesReg.button} onPress={onRegister}>
+            <Text style={stylesReg.btnText}>Зареєструватися</Text>
+          </Pressable>
+        </KeyboardAvoidingView>
+      </View>
       <Text style={stylesReg.text}>Вже є акаунт? Увійти</Text>
     </View>
   );
@@ -100,12 +127,15 @@ const stylesReg = StyleSheet.create({
     textAlign: "center",
     marginBottom: 16,
   },
+  inputBox: {
+    width: "100%",
+  },
   textInput: {
     width: "100%",
     height: 50,
     marginTop: 16,
-    marginLeft: "auto",
-    marginRight: "auto",
+    // marginLeft: "auto",
+    // marginRight: "auto",
     borderWidth: 1,
     borderRadius: 5,
     paddingLeft: 15,
