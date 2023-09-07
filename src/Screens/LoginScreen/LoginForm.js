@@ -29,12 +29,17 @@ export const LoginForm = () => {
         onChangeText={setEmail}
         placeholder="Адреса електронної пошти"
       />
-      <TextInput
-        style={stylesLog.textInput}
-        value={password}
-        onChangeText={setPassword}
-        placeholder="Пароль"
-      />
+      <View>
+        <TextInput
+          style={stylesLog.textInput}
+          value={password}
+          onChangeText={setPassword}
+          placeholder="Пароль"
+        />
+        <Pressable style={stylesLog.inputShow}>
+          <Text style={stylesLog.inputShowText}>Показати</Text>
+        </Pressable>
+      </View>
       <Pressable style={stylesLog.button} onPress={onLogin}>
         <Text style={stylesLog.btnText}>Увійти</Text>
       </Pressable>
@@ -72,15 +77,25 @@ const stylesLog = StyleSheet.create({
     fontFamily: "Roboto-500",
   },
   textInput: {
+    position: "relative",
     width: "100%",
     height: 50,
     marginTop: 16,
-    marginLeft: "auto",
-    marginRight: "auto",
+    // marginLeft: "auto",
+    // marginRight: "auto",
     borderWidth: 1,
     borderRadius: 5,
     paddingLeft: 15,
     fontSize: 20,
+  },
+  inputShow: {
+    position: "absolute",
+    top: 28,
+    right: 10,
+  },
+  inputShowText: {
+    fontSize: 16,
+    color: "#1B4371",
   },
   button: {
     backgroundColor: "#FF6C00",
