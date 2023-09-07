@@ -64,13 +64,17 @@ export const RegistrationForm = () => {
             onChangeText={setEmail}
             placeholder="Адреса електронної пошти"
           />
-
-          <TextInput
-            style={stylesReg.textInput}
-            value={password}
-            onChangeText={setPassword}
-            placeholder="Пароль"
-          />
+          <View>
+            <TextInput
+              style={stylesReg.textInput}
+              value={password}
+              onChangeText={setPassword}
+              placeholder="Пароль"
+            />
+            <Pressable style={stylesReg.inputShow}>
+              <Text style={stylesReg.inputShowText}>Показати</Text>
+            </Pressable>
+          </View>
 
           <Pressable style={stylesReg.button} onPress={onRegister}>
             <Text style={stylesReg.btnText}>Зареєструватися</Text>
@@ -131,6 +135,7 @@ const stylesReg = StyleSheet.create({
     width: "100%",
   },
   textInput: {
+    position: "relative",
     width: "100%",
     height: 50,
     marginTop: 16,
@@ -140,6 +145,15 @@ const stylesReg = StyleSheet.create({
     borderRadius: 5,
     paddingLeft: 15,
     fontSize: 20,
+  },
+  inputShow: {
+    position: "absolute",
+    top: 28,
+    right: 10,
+  },
+  inputShowText: {
+    fontSize: 16,
+    color: "#1B4371",
   },
   button: {
     width: "100%",
