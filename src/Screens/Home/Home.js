@@ -5,7 +5,7 @@ import { HeaderPosts } from "../Components/HeaderPosts";
 import TabBarAdd from "../Components/TabBarAdd";
 import { ContentBoxHome } from "./ContentBoxHome";
 
-export const Home = () => {
+const Home = () => {
   return (
     <View style={styles.container}>
       <HeaderPosts style={styles.header}></HeaderPosts>
@@ -14,7 +14,7 @@ export const Home = () => {
         <ContentBoxHome></ContentBoxHome>
       </ScrollView>
 
-      <TabBarAdd></TabBarAdd>
+      <TabBarAdd />
     </View>
   );
 };
@@ -36,3 +36,5 @@ const styles = StyleSheet.create({
     // bottom: 0,
   },
 });
+
+export default Home;

@@ -10,11 +10,11 @@ import "react-native-gesture-handler";
 import BackImage from "./src/Img/img1.png";
 import { RegistrationScreen } from "./src/Screens/RegistrationScreen/RegistrationScreen";
 import { LoginScreen } from "./src/Screens/LoginScreen/LoginScreen";
-import { PostsScreen } from "./src/Screens/PostsScreen/PostsScreen";
-import { CreatePostsScreen } from "./src/Screens/CreatePostsScreen/CreatePostsScreen";
+import PostsScreen from "./src/Screens/PostsScreen/PostsScreen";
+import CreatePostsScreen from "./src/Screens/CreatePostsScreen/CreatePostsScreen";
 import { CommentsScreen } from "./src/Screens/CommentsScreen/CommentsScreen";
-import { ProfileScreen } from "./src/Screens/ProfileScreen/ProfileScreen";
-import { Home } from "./src/Screens/Home/Home";
+import ProfileScreen from "./src/Screens/ProfileScreen/ProfileScreen";
+import Home from "./src/Screens/Home/Home";
 import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -66,6 +66,16 @@ export default function App() {
             component={ProfileScreen}
             // options={{ headerShown: false }}
           />
+          <MainStack.Screen
+            name="PostsScreen"
+            component={PostsScreen}
+            // options={{ headerShown: false }}
+          />
+          <MainStack.Screen
+            name="CreatePostsScreen"
+            component={CreatePostsScreen}
+            // options={{ headerShown: false }}
+          />
         </MainStack.Navigator>
       </NavigationContainer>
       {/* <LoginScreen /> */}
@@ -86,4 +96,3 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
 });
-

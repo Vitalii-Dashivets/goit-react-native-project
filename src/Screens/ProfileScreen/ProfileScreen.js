@@ -16,7 +16,7 @@ import BtnAdd from "../../Img/Union1.svg";
 import { PictureCard } from "../Components/PictureCard";
 // import TabBarAdd from "../Components/TabBarAdd";
 
-export const ProfileScreen = () => {
+const ProfileScreen = () => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.containerScroll}>
@@ -120,3 +120,4 @@ const styles = StyleSheet.create({
     gap: 32,
   },
 });
+export default ProfileScreen;
