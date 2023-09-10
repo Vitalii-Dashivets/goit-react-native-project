@@ -10,7 +10,7 @@ import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Logout from "./src/Img/log-out.svg";
-
+import TabBarAdd from "./src/Screens/Components/TabBarAdd";
 const MainStack = createStackNavigator();
 
 export default function App() {
@@ -47,7 +47,7 @@ export default function App() {
           />
           <MainStack.Screen
             name="Home"
-            component={Home}
+            component={TabBarAdd}
             options={() => ({
               title: "Публікації",
               headerStyle: {
@@ -60,27 +60,12 @@ export default function App() {
               headerTintColor: "black",
               headerTitleStyle: {
                 fontSize: 17,
-                fontFamily: "Roboto-500",
+                // fontFamily: "Roboto-500",
                 alignItems: "center",
               },
               headerLeft: () => {},
               headerRight: () => <Logout title="Press me" color="#fff" />,
             })}
-          />
-          <MainStack.Screen
-            name="CreatePostsScreen"
-            component={CreatePostsScreen}
-            options={{ headerShown: false }}
-          />
-          <MainStack.Screen
-            name="PostsScreen"
-            component={PostsScreen}
-            options={{ headerShown: false }}
-          />
-          <MainStack.Screen
-            name="ProfileScreen"
-            component={ProfileScreen}
-            options={{ headerShown: false }}
           />
         </MainStack.Navigator>
       </NavigationContainer>
