@@ -11,6 +11,7 @@ import {
 
 import * as React from "react";
 import BtnAdd from "../../Img/Union1.svg";
+import { useNavigation } from "@react-navigation/native";
 
 export const RegistrationForm = () => {
   const [name, setName] = React.useState("");
@@ -21,6 +22,7 @@ export const RegistrationForm = () => {
     email: email,
     password: password,
   });
+  const navigation = useNavigation();
   React.useEffect(() => {
     console.log(state);
   }, [state]);
@@ -30,6 +32,7 @@ export const RegistrationForm = () => {
     }
   }
   const onRegister = () => {
+    navigation.navigate("Home");
     return dispatch({ type: "submitForm" });
   };
   return (
@@ -64,24 +67,23 @@ export const RegistrationForm = () => {
             onChangeText={setEmail}
             placeholder="Адреса електронної пошти"
           />
-          <View>
-            <TextInput
-              style={stylesReg.textInput}
-              value={password}
-              onChangeText={setPassword}
-              placeholder="Пароль"
-            />
-            <Pressable style={stylesReg.inputShow}>
-              <Text style={stylesReg.inputShowText}>Показати</Text>
-            </Pressable>
-          </View>
+
+          <TextInput
+            style={stylesReg.textInput}
+            value={password}
+            secureTextEntry
+            onChangeText={setPassword}
+            placeholder="Пароль"
+          />
 
           <Pressable style={stylesReg.button} onPress={onRegister}>
             <Text style={stylesReg.btnText}>Зареєструватися</Text>
           </Pressable>
         </KeyboardAvoidingView>
       </View>
-      <Text style={stylesReg.text}>Вже є акаунт? Увійти</Text>
+      <Pressable onPress={() => navigation.navigate("Login")}>
+        <Text style={stylesReg.text}>Вже є акаунт? Увійти</Text>
+      </Pressable>
     </View>
   );
 };
@@ -123,6 +125,7 @@ const stylesReg = StyleSheet.create({
     lineHeight: 19,
     textAlign: "center",
     fontFamily: "Roboto-400",
+    color: "rgba(27, 67, 113, 1)",
   },
   title: {
     color: "black",
@@ -135,7 +138,6 @@ const stylesReg = StyleSheet.create({
     width: "100%",
   },
   textInput: {
-    position: "relative",
     width: "100%",
     height: 50,
     marginTop: 16,
@@ -145,15 +147,6 @@ const stylesReg = StyleSheet.create({
     borderRadius: 5,
     paddingLeft: 15,
     fontSize: 20,
-  },
-  inputShow: {
-    position: "absolute",
-    top: 28,
-    right: 10,
-  },
-  inputShowText: {
-    fontSize: 16,
-    color: "#1B4371",
   },
   button: {
     width: "100%",
@@ -186,3 +179,4 @@ const stylesReg = StyleSheet.create({
     height: 13,
   },
 });
+
