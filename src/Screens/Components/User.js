@@ -43,10 +43,10 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
 
     borderColor: "rgba(0,0,0,0.3)",
-    paddingLeft: 16,
-    paddingRight: 16,
-    paddingTop: 32,
-    paddingBottom: 32,
+    // paddingLeft: 16,
+    // paddingRight: 16,
+    // paddingTop: 32,
+    // paddingBottom: 32,
   },
   box: {
     flexDirection: "row",
