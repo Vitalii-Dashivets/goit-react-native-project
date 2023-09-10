@@ -16,8 +16,11 @@ import { CommentsScreen } from "./src/Screens/CommentsScreen/CommentsScreen";
 import ProfileScreen from "./src/Screens/ProfileScreen/ProfileScreen";
 import Home from "./src/Screens/Home/Home";
 import { useFonts } from "expo-font";
+import { useNavigation } from "@react-navigation/native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+
+import Logout from "./src/Img/log-out.svg";
 
 const MainStack = createStackNavigator();
 
@@ -27,6 +30,7 @@ export default function App() {
     "Roboto-500": require("./assets/fonts/Roboto-Medium.ttf"),
     "Roboto-700": require("./assets/fonts/Roboto-Bold.ttf"),
   });
+
   if (!fontsLoaded) {
     return null;
   }
@@ -42,40 +46,85 @@ export default function App() {
       <NavigationContainer>
         <MainStack.Navigator
           initialRouteName="Login"
-          screenOptions={{
-            headerShown: false,
-          }}
+          screenOptions={
+            {
+              // headerShown: false,
+            }
+          }
         >
           <MainStack.Screen
             name="Registration"
             component={RegistrationScreen}
-            // options={{ headerShown: false }}
+            options={{ headerShown: false }}
           />
           <MainStack.Screen
             name="Login"
             component={LoginScreen}
-            // options={{ headerShown: false }}
+            options={{ headerShown: false }}
           />
           <MainStack.Screen
             name="Home"
             component={Home}
             // options={{ headerShown: false }}
+            options={({ navigation }) => ({
+              title: "Публікації",
+              headerStyle: {
+                backgroundColor: "white",
+                height: 83,
+                // justifyContent: "center",
+                // alignItems: "center",
+
+                borderBottomWidth: 1,
+              },
+              headerTintColor: "black",
+              headerTitleStyle: {
+                fontSize: 17,
+                fontFamily: "Roboto-500",
+                alignItems: "center",
+              },
+              headerLeft: () => {},
+              headerRight: () => <Logout title="Press me" color="#fff" />,
+            })}
           />
-          <MainStack.Screen
+          {/* <MainStack.Screen
             name="ProfileScreen"
             component={ProfileScreen}
             // options={{ headerShown: false }}
-          />
-          <MainStack.Screen
+          /> */}
+          {/* <MainStack.Screen
             name="PostsScreen"
             component={PostsScreen}
             // options={{ headerShown: false }}
-          />
-          <MainStack.Screen
+            options={{
+              title: "Публікації",
+              headerStyle: {
+                backgroundColor: "#f4511e",
+                justifyContent: "center",
+                alignItems: "center",
+                borderColor: "rgba(0,0,0,0.3)",
+              },
+              headerTintColor: "#fff",
+              headerTitleStyle: {
+                fontSize: 17,
+                fontFamily: "Roboto-500",
+                marginLeft: 200,
+                justifyContent: "center",
+                alignItems: "center",
+              },
+              headerRight: () => (
+                <Button
+                  onPress={() => alert("This is a button!")}
+                  title="Press me"
+                  color="#fff"
+                />
+              ),
+            }}
+          /> */}
+          {/* <MainStack.Screen
             name="CreatePostsScreen"
             component={CreatePostsScreen}
             // options={{ headerShown: false }}
-          />
+          /> */}
         </MainStack.Navigator>
       </NavigationContainer>
       {/* <LoginScreen /> */}
