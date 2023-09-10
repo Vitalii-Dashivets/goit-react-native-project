@@ -6,13 +6,13 @@ import UserIcon from "../../Img/user.svg";
 import Union from "../../Img/Union2.svg";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 // import { Ionicons } from "@expo/vector-icons";
-import { PostsScreen } from "../PostsScreen/PostsScreen";
-import { CreatePostsScreen } from "../CreatePostsScreen/CreatePostsScreen";
-import { ProfileScreen } from "../ProfileScreen/ProfileScreen";
+import PostsScreen from "../PostsScreen/PostsScreen";
+import CreatePostsScreen from "../CreatePostsScreen/CreatePostsScreen";
+import ProfileScreen from "../ProfileScreen/ProfileScreen";
 
 const Tabs = createBottomTabNavigator();
 
-export default TabBarAdd = () => {
+const TabBarAdd = () => {
   return (
     // <View style={styles.container}>
     //   <View style={styles.box}>
@@ -30,14 +30,14 @@ export default TabBarAdd = () => {
 
     <Tabs.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ size }) => {
-          if (route.name === "Posts") {
+        tabBarIcon: () => {
+          if (route.name === "PostsScreen") {
             return (
               <View style={styles.tabLeftBox}>
                 <GridIcon />
               </View>
             );
-          } else if (route.name === "CreatePosts") {
+          } else if (route.name === "CreatePostsScreen") {
             return (
               <View style={styles.tabCenterBox}>
                 <View style={styles.button}>
@@ -45,12 +45,13 @@ export default TabBarAdd = () => {
                 </View>
               </View>
             );
-          } else if (route.name === "ProfileScreen")
+          } else if (route.name === "ProfileScreen") {
             return (
               <View style={styles.tabRightBox}>
                 <UserIcon />
               </View>
             );
+          }
         },
         tabBarStyle: {
           width: "100%",
@@ -63,13 +64,9 @@ export default TabBarAdd = () => {
         },
         tabBarShowLabel: false,
       })}
-      // tabBarOptions={{
-      //   activeTintColor: "tomato",
-      //   inactiveTintColor: "gray",
-      // }}
     >
-      <Tabs.Screen name="Posts" component={PostsScreen} />
-      <Tabs.Screen name="CreatePosts" component={CreatePostsScreen} />
+      <Tabs.Screen name="PostsScreen" component={PostsScreen} />
+      <Tabs.Screen name="CreatePostsScreen" component={CreatePostsScreen} />
       <Tabs.Screen name="ProfileScreen" component={ProfileScreen} />
     </Tabs.Navigator>
   );
@@ -137,7 +134,7 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: "center",
     alignItems: "flex-end",
-    paddingRight: 10,
+    marginRight: 15,
   },
   tabCenterBox: {
     width: "100%",
@@ -150,6 +147,8 @@ const styles = StyleSheet.create({
     height: 40,
     justifyContent: "center",
     alignItems: "flex-start",
-    paddingLeft: 10,
+    marginLeft: 15,
   },
 });
+
+export default TabBarAdd;

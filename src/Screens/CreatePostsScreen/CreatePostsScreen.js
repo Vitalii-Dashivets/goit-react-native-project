@@ -5,7 +5,7 @@ import { HeaderCreatePosts } from "../Components/HeaderCreatePosts";
 import { TabBar } from "../Components/TabBar";
 import { ContentBox } from "./ContentBox";
 
-export const CreatePostsScreen = () => {
+const CreatePostsScreen = () => {
   return (
     <View style={styles.container}>
       <HeaderCreatePosts style={styles.header}></HeaderCreatePosts>
@@ -32,3 +32,4 @@ const styles = StyleSheet.create({
     // bottom: 0,
   },
 });
+export default CreatePostsScreen;

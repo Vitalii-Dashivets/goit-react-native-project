@@ -5,7 +5,7 @@ import { HeaderPosts } from "../Components/HeaderPosts";
 
 import { User } from "../Components/User";
 
-export const PostsScreen = () => {
+const PostsScreen = () => {
   return (
     <View style={styles.container}>
       <HeaderPosts style={styles.header}></HeaderPosts>
@@ -38,3 +38,4 @@ const styles = StyleSheet.create({
     // bottom: 0,
   },
 });
+export default PostsScreen;
