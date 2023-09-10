@@ -11,6 +11,7 @@ import {
 
 import * as React from "react";
 import BtnAdd from "../../Img/Union1.svg";
+import { useNavigation } from "@react-navigation/native";
 
 export const RegistrationForm = () => {
   const [name, setName] = React.useState("");
@@ -21,6 +22,7 @@ export const RegistrationForm = () => {
     email: email,
     password: password,
   });
+  const navigation = useNavigation();
   React.useEffect(() => {
     console.log(state);
   }, [state]);
@@ -30,6 +32,7 @@ export const RegistrationForm = () => {
     }
   }
   const onRegister = () => {
+    navigation.navigate("Home");
     return dispatch({ type: "submitForm" });
   };
   return (
@@ -68,6 +71,7 @@ export const RegistrationForm = () => {
           <TextInput
             style={stylesReg.textInput}
             value={password}
+            secureTextEntry
             onChangeText={setPassword}
             placeholder="Пароль"
           />
@@ -77,7 +81,9 @@ export const RegistrationForm = () => {
           </Pressable>
         </KeyboardAvoidingView>
       </View>
-      <Text style={stylesReg.text}>Вже є акаунт? Увійти</Text>
+      <Pressable onPress={() => navigation.navigate("Login")}>
+        <Text style={stylesReg.text}>Вже є акаунт? Увійти</Text>
+      </Pressable>
     </View>
   );
 };
@@ -119,6 +125,7 @@ const stylesReg = StyleSheet.create({
     lineHeight: 19,
     textAlign: "center",
     fontFamily: "Roboto-400",
+    color: "rgba(27, 67, 113, 1)",
   },
   title: {
     color: "black",

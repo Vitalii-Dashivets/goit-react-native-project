@@ -1,19 +1,18 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import * as React from "react";
 
-import Logout from "../../Img/log-out.svg";
+import ArrowLeft from "../../Img/arrow-left.svg";
 export const Header = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
+        <Pressable style={styles.arrowLeft}>
+          <ArrowLeft width={24} height={24} />
+        </Pressable>
         <View style={styles.textbox}>
-          <Text style={styles.text}>Публікації</Text>
+          <Text style={styles.text}>Коментарі</Text>
         </View>
       </View>
-
-      <Pressable style={styles.logout}>
-        <Logout width={25} height={25} />
-      </Pressable>
     </View>
   );
 };
@@ -39,9 +38,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  logout: {
+  arrowLeft: {
     position: "absolute",
-    right: 10,
+    left: 16,
     bottom: 10,
   },
   header: {

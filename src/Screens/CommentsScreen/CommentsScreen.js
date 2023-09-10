@@ -1,17 +1,18 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import * as React from "react";
 
-import { HeaderPosts } from "../Components/HeaderPosts";
+import { Header } from "./Header";
+import { TabBar } from "../Components/TabBarComent";
+import { ContentBox } from "./ContentBox";
+import { Comments } from "./Comments";
 
-import { User } from "../Components/User";
-
-export const PostsScreen = () => {
+export const CommentsScreen = () => {
   return (
     <View style={styles.container}>
-      <HeaderPosts style={styles.header}></HeaderPosts>
-      <View style={styles.box}>
-        <User></User>
-      </View>
+      <Header style={styles.header}></Header>
+      <ContentBox></ContentBox>
+      <Comments></Comments>
+      <TabBarColor style={styles.footer}></TabBarColor>
     </View>
   );
 };
@@ -20,14 +21,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    position: "relative",
     // height: "100%",
     backgroundColor: "white",
     justifyContent: "space-between",
-  },
-  box: {
-    justifyContent: "flex-start",
-    // alignItems: "center",
   },
   header: {
     // // position: "absolute",

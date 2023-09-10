@@ -1,5 +1,6 @@
 import { StyleSheet, Text, TextInput, View, Pressable } from "react-native";
 import * as React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 export const LoginForm = () => {
   const [email, setEmail] = React.useState("");
@@ -8,6 +9,8 @@ export const LoginForm = () => {
     email: email,
     password: password,
   });
+  const navigation = useNavigation();
+
   React.useEffect(() => {
     console.log(state);
   }, [state]);
@@ -17,6 +20,7 @@ export const LoginForm = () => {
     }
   }
   const onLogin = () => {
+    navigation.navigate("Home");
     return dispatch({ type: "submitForm" });
   };
   return (
@@ -32,13 +36,17 @@ export const LoginForm = () => {
       <TextInput
         style={stylesLog.textInput}
         value={password}
+        secureTextEntry
         onChangeText={setPassword}
         placeholder="Пароль"
       />
       <Pressable style={stylesLog.button} onPress={onLogin}>
         <Text style={stylesLog.btnText}>Увійти</Text>
       </Pressable>
-      <Text style={stylesLog.text}>Немає акаунту? Зареєструватися</Text>
+      <Pressable onPress={() => navigation.navigate("Registration")}>
+        <Text style={stylesLog.text}>Немає акаунту? Зареєструватися</Text>
+      </Pressable>
+      {/* <Text style={stylesLog.text}>Немає акаунту? Зареєструватися</Text> */}
     </View>
   );
 };
@@ -48,7 +56,7 @@ const stylesLog = StyleSheet.create({
     paddingTop: 16,
     paddingLeft: 16,
     paddingRight: 16,
-    paddingBottom: 144,
+    paddingBottom: 40,
     backgroundColor: "white",
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
@@ -62,6 +70,7 @@ const stylesLog = StyleSheet.create({
     lineHeight: 19,
     textAlign: "center",
     fontFamily: "Roboto-400",
+    color: "rgba(27, 67, 113, 1)",
   },
   title: {
     color: "black",
