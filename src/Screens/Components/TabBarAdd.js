@@ -29,19 +29,24 @@ const TabBarAdd = () => {
           alignItems: "flex-start",
         },
         tabBarShowLabel: false,
+        headerStyle: {
+          height: 88,
+          borderBottomWidth: 1,
+          borderBottomColor: "rgba(0, 0, 0, 0.3)",
+        },
       }}
     >
       <Tabs.Screen
         name="PostsScreen"
         component={PostsScreen}
-        options={{ tabBarIcon: () => <GridIcon /> }}
+        options={{ tabBarIcon: ({ color, size }) => <GridIcon /> }}
       />
 
       <Tabs.Screen
         name="CreatePostsScreen"
         component={CreatePostsScreen}
         options={{
-          tabBarIcon: () => (
+          tabBarIcon: ({ color, size }) => (
             <View style={styles.tabCenterBox}>
               <View style={styles.button}>
                 <Union />
@@ -54,7 +59,7 @@ const TabBarAdd = () => {
       <Tabs.Screen
         name="ProfileScreen"
         component={ProfileScreen}
-        options={{ tabBarIcon: () => <UserIcon /> }}
+        options={{ tabBarIcon: ({ color, size }) => <UserIcon /> }}
       />
     </Tabs.Navigator>
   );

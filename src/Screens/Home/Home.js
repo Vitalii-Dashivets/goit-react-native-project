@@ -17,8 +17,6 @@ const Home = ({ navigation }) => {
   }, [navigation]);
   return (
     <View style={styles.container}>
-      <HeaderPosts style={styles.header}></HeaderPosts>
-      {/* <ContentBox></ContentBox> */}
       <ScrollView>
         <ContentBoxHome></ContentBoxHome>
       </ScrollView>
@@ -32,17 +30,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    // height: "100%",
     backgroundColor: "white",
     justifyContent: "space-between",
-  },
-  header: {
-    // // position: "absolute",
-    // top: 0,
-  },
-  footer: {
-    // position: "absolute",
-    // bottom: 0,
   },
 });
 
