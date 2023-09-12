@@ -24,20 +24,10 @@ export const ContentBox = () => {
       <KeyboardAvoidingView
         behavior={Platform.OS == "ios" ? "padding" : "height"}
       >
-        <TextInput
-          style={styles.textInput}
-          //   value={password}
-          //   onChangeText={setPassword}
-          placeholder="Назва..."
-        />
+        <TextInput style={styles.textInput} placeholder="Назва..." />
         <View style={styles.mapInputBox}>
           <MapPin style={styles.mapPinIcon}></MapPin>
-          <TextInput
-            style={styles.textInputMap}
-            //   value={password}
-            //   onChangeText={setPassword}
-            placeholder="Місцевість..."
-          />
+          <TextInput style={styles.textInputMap} placeholder="Місцевість..." />
         </View>
 
         <Pressable style={styles.button}>
@@ -50,7 +40,7 @@ export const ContentBox = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     width: "100%",
     // height: "100%",
     backgroundColor: "white",

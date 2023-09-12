@@ -46,7 +46,6 @@ export const LoginForm = () => {
       <Pressable onPress={() => navigation.navigate("Registration")}>
         <Text style={stylesLog.text}>Немає акаунту? Зареєструватися</Text>
       </Pressable>
-      {/* <Text style={stylesLog.text}>Немає акаунту? Зареєструватися</Text> */}
     </View>
   );
 };
@@ -123,4 +122,3 @@ const stylesLog = StyleSheet.create({
     height: 13,
   },
 });
-

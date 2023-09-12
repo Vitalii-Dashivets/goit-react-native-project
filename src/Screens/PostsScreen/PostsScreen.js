@@ -1,11 +1,17 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import * as React from "react";
-
-import { HeaderPosts } from "../Components/HeaderPosts";
-
 import { User } from "../Components/User";
+import Logout from "../../Img/log-out.svg";
 
-const PostsScreen = () => {
+const PostsScreen = ({ navigation }) => {
+  React.useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Logout onPress={() => navigation.navigate("Login")} />
+      ),
+    });
+  }, [navigation]);
+
   return (
     <View style={styles.container}>
       <View style={styles.box}>
@@ -25,6 +31,9 @@ const styles = StyleSheet.create({
   },
   box: {
     justifyContent: "flex-start",
+    paddingLeft: 16,
+    paddingRight: 16,
+    paddingTop: 32,
   },
 });
 export default PostsScreen;
