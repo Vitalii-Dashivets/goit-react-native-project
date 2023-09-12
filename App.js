@@ -2,7 +2,6 @@ import { StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native";
 import "react-native-gesture-handler";
 import { RegistrationScreen } from "./src/Screens/RegistrationScreen/RegistrationScreen";
 import { LoginScreen } from "./src/Screens/LoginScreen/LoginScreen";
-import Home from "./src/Screens/Home/Home";
 import CreatePostsScreen from "./src/Screens/CreatePostsScreen/CreatePostsScreen";
 import ProfileScreen from "./src/Screens/ProfileScreen/ProfileScreen";
 import PostsScreen from "./src/Screens/PostsScreen/PostsScreen.js";
@@ -11,6 +10,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Logout from "./src/Img/log-out.svg";
 import TabBarAdd from "./src/Screens/Components/TabBarAdd";
+
 const MainStack = createStackNavigator();
 
 export default function App() {
@@ -49,7 +49,8 @@ export default function App() {
             name="Home"
             component={TabBarAdd}
             options={() => ({
-              title: "Публікації",
+              headerShown: false,
+              headerTitle: "Публікації",
               headerStyle: {
                 backgroundColor: "white",
                 height: 83,
@@ -60,12 +61,27 @@ export default function App() {
               headerTintColor: "black",
               headerTitleStyle: {
                 fontSize: 17,
-                // fontFamily: "Roboto-500",
+                fontFamily: "Roboto-500",
                 alignItems: "center",
               },
               headerLeft: () => {},
               headerRight: () => <Logout title="Press me" color="#fff" />,
             })}
+          />
+          <MainStack.Screen
+            name="CreatePostsScreen"
+            component={CreatePostsScreen}
+            options={{ headerShown: false }}
+          />
+          <MainStack.Screen
+            name="PostsScreen"
+            component={PostsScreen}
+            options={{ headerShown: false }}
+          />
+          <MainStack.Screen
+            name="ProfileScreen"
+            component={ProfileScreen}
+            options={{ headerShown: false }}
           />
         </MainStack.Navigator>
       </NavigationContainer>
