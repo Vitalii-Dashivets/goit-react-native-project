@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import * as React from "react";
-
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import GridIcon from "../../Img/grid.svg";
 import UserIcon from "../../Img/user.svg";
 import Union from "../../Img/Union2.svg";
@@ -8,6 +8,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import PostsScreen from "../PostsScreen/PostsScreen";
 import CreatePostsScreen from "../CreatePostsScreen/CreatePostsScreen";
 import ProfileScreen from "../ProfileScreen/ProfileScreen";
+import Logout from "../../Img/log-out.svg";
+import ArrowLeft from "../../Img/arrow-left.svg";
 
 const Tabs = createBottomTabNavigator();
 
@@ -28,6 +30,7 @@ const TabBarAdd = () => {
           paddingRight: 81,
           alignItems: "flex-start",
         },
+        tabBarVisible: false,
         tabBarShowLabel: false,
         headerStyle: {
           height: 88,
@@ -39,18 +42,51 @@ const TabBarAdd = () => {
       <Tabs.Screen
         name="PostsScreen"
         component={PostsScreen}
-        options={{ tabBarIcon: ({ color, size }) => <GridIcon /> }}
+        options={{
+          headerTitle: "Публікації",
+          headerStyle: {
+            backgroundColor: "white",
+            height: 83,
+            borderBottomWidth: 1,
+          },
+          headerRightContainerStyle: { right: 10 },
+          headerTitleAlign: "center",
+          headerTintColor: "black",
+          headerTitleStyle: {
+            fontSize: 17,
+            fontFamily: "Roboto-500",
+            alignItems: "center",
+          },
+
+          headerRight: () => <Logout title="Press me" color="#fff" />,
+          tabBarIcon: ({ color, size }) => <GridIcon />,
+        }}
       />
 
       <Tabs.Screen
         name="CreatePostsScreen"
         component={CreatePostsScreen}
         options={{
+          headerTitle: "Створити публікацію",
+          headerStyle: {
+            backgroundColor: "white",
+            height: 83,
+            borderBottomWidth: 1,
+          },
+          headerLeftContainerStyle: { left: 16 },
+          headerTitleAlign: "center",
+          headerTintColor: "black",
+          headerTitleStyle: {
+            fontSize: 17,
+            fontFamily: "Roboto-500",
+            alignItems: "center",
+          },
+          tabBarStyle: { display: "none" },
+          headerLeft: () => <ArrowLeft title="Press me" color="#fff" />,
+
           tabBarIcon: ({ color, size }) => (
-            <View style={styles.tabCenterBox}>
-              <View style={styles.button}>
-                <Union />
-              </View>
+            <View style={styles.button}>
+              <Union />
             </View>
           ),
         }}
@@ -59,7 +95,10 @@ const TabBarAdd = () => {
       <Tabs.Screen
         name="ProfileScreen"
         component={ProfileScreen}
-        options={{ tabBarIcon: ({ color, size }) => <UserIcon /> }}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, size }) => <UserIcon />,
+        }}
       />
     </Tabs.Navigator>
   );

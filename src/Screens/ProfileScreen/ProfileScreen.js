@@ -9,40 +9,54 @@ import {
   Platform,
   ScrollView,
   FlatList,
+  ImageBackground,
 } from "react-native";
 
 import * as React from "react";
 import BtnAdd from "../../Img/Union1.svg";
 import { PictureCard } from "../Components/PictureCard";
-// import TabBarAdd from "../Components/TabBarAdd";
+import BackImage from "../../Img/img1.png";
+import Logout from "../../Img/log-out.svg";
 
-const ProfileScreen = () => {
+const ProfileScreen = ({ navigation }) => {
+  const onLogout = () => {
+    navigation.navigate("Login");
+  };
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.containerScroll}>
-        <View style={styles.box} removeClippedSubviews={false}>
-          <View style={styles.imageContainer}>
-            <View style={styles.imageBox}>
-              <Image
-                source={{ uri: "https://reactjs.org/logo-og.png" }}
-                style={styles.image}
-              ></Image>
-              <Pressable style={styles.btnAdd}>
-                <BtnAdd width={13} height={13} />
+      <ImageBackground
+        source={BackImage}
+        resizeMode="cover"
+        style={{ width: "100%", height: "100%" }}
+      >
+        <ScrollView contentContainerStyle={styles.containerScroll}>
+          <View style={styles.box} removeClippedSubviews={false}>
+            <View style={styles.imageContainer}>
+              <View style={styles.imageBox}>
+                <Image
+                  source={{ uri: "https://reactjs.org/logo-og.png" }}
+                  style={styles.image}
+                ></Image>
+                <Pressable style={styles.btnAdd}>
+                  <BtnAdd width={13} height={13} />
+                </Pressable>
+              </View>
+            </View>
+            <View style={styles.logoutContainer}>
+              <Pressable onPress={onLogout}>
+                <Logout></Logout>
               </Pressable>
             </View>
+            <Text style={styles.title}>Ім'я Прізвище</Text>
+            <View style={styles.pictureContainer}>
+              <PictureCard></PictureCard>
+              <PictureCard></PictureCard>
+              <PictureCard></PictureCard>
+            </View>
+            <View height={100}></View>
           </View>
-
-          <Text style={styles.title}>Ім'я Прізвище</Text>
-          <View style={styles.pictureContainer}>
-            <PictureCard></PictureCard>
-            <PictureCard></PictureCard>
-            <PictureCard></PictureCard>
-          </View>
-          <View height={100}></View>
-        </View>
-      </ScrollView>
-      {/* <TabBarAdd></TabBarAdd> */}
+        </ScrollView>
+      </ImageBackground>
     </View>
   );
 };
@@ -59,8 +73,6 @@ const styles = StyleSheet.create({
   },
   box: {
     top: 145,
-
-    //  marginTop: 147,
     position: "relative",
     justifyContent: "flex-start",
     alignItems: "center",
@@ -72,14 +84,12 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     width: "100%",
-
-    // height: "100%",
   },
   imageContainer: {
     width: "100%",
     position: "absolute",
     alignItems: "center",
-    zIndex: 10,
+    // zIndex: 10,
     top: -60,
   },
   imageBox: {
@@ -96,7 +106,6 @@ const styles = StyleSheet.create({
   title: {
     color: "black",
     fontSize: 30,
-    // letterSpacing: 0.01,
     lineHeight: 35,
     fontFamily: "Roboto-500",
     textAlign: "center",
@@ -118,6 +127,11 @@ const styles = StyleSheet.create({
     width: "100%",
     marginTop: 33,
     gap: 32,
+  },
+  logoutContainer: {
+    position: "absolute",
+    right: 16,
+    top: 22,
   },
 });
 export default ProfileScreen;

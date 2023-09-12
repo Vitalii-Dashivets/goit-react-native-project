@@ -2,7 +2,6 @@ import { StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native";
 import "react-native-gesture-handler";
 import { RegistrationScreen } from "./src/Screens/RegistrationScreen/RegistrationScreen";
 import { LoginScreen } from "./src/Screens/LoginScreen/LoginScreen";
-import Home from "./src/Screens/Home/Home";
 import CreatePostsScreen from "./src/Screens/CreatePostsScreen/CreatePostsScreen";
 import ProfileScreen from "./src/Screens/ProfileScreen/ProfileScreen";
 import PostsScreen from "./src/Screens/PostsScreen/PostsScreen.js";
@@ -10,6 +9,7 @@ import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Logout from "./src/Img/log-out.svg";
+import TabBarAdd from "./src/Screens/Components/TabBarAdd";
 
 const MainStack = createStackNavigator();
 
@@ -47,9 +47,10 @@ export default function App() {
           />
           <MainStack.Screen
             name="Home"
-            component={Home}
+            component={TabBarAdd}
             options={() => ({
-              title: "Публікації",
+              headerShown: false,
+              headerTitle: "Публікації",
               headerStyle: {
                 backgroundColor: "white",
                 height: 83,

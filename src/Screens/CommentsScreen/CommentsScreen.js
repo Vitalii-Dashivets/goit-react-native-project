@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import * as React from "react";
 
 import { Header } from "./Header";
-import { TabBar } from "../Components/TabBarComent";
+import { TabBarColor } from "../Components/TabBarComent";
 import { ContentBox } from "./ContentBox";
 import { Comments } from "./Comments";
 
