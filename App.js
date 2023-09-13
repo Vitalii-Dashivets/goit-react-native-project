@@ -27,11 +27,11 @@ export default function App() {
       <NavigationContainer>
         <MainStack.Navigator
           initialRouteName="Login"
-          screenOptions={
-            {
-              // headerShown: false,
-            }
-          }
+          // screenOptions={
+          //   {
+          //     // headerShown: false,
+          //   }
+          // }
         >
           <MainStack.Screen
             name="Registration"
