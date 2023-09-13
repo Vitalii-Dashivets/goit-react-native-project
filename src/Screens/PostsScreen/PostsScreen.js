@@ -2,8 +2,9 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 import * as React from "react";
 import { User } from "../Components/User";
 import Logout from "../../Img/log-out.svg";
-
-const PostsScreen = ({ navigation }) => {
+import { useNavigation } from "@react-navigation/native";
+const PostsScreen = () => {
+  const navigation = useNavigation();
   React.useEffect(() => {
     navigation.setOptions({
       headerRight: () => (

@@ -1,10 +1,8 @@
 import { StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native";
 import "react-native-gesture-handler";
-import { RegistrationScreen } from "./src/Screens/RegistrationScreen/RegistrationScreen";
-import { LoginScreen } from "./src/Screens/LoginScreen/LoginScreen";
-import CreatePostsScreen from "./src/Screens/CreatePostsScreen/CreatePostsScreen";
-import ProfileScreen from "./src/Screens/ProfileScreen/ProfileScreen";
-import PostsScreen from "./src/Screens/PostsScreen/PostsScreen.js";
+import RegistrationScreen from "./src/Screens/RegistrationScreen/RegistrationScreen";
+import LoginScreen from "./src/Screens/LoginScreen/LoginScreen";
+
 import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -67,21 +65,6 @@ export default function App() {
               headerLeft: () => {},
               headerRight: () => <Logout title="Press me" color="#fff" />,
             })}
-          />
-          <MainStack.Screen
-            name="CreatePostsScreen"
-            component={CreatePostsScreen}
-            options={{ headerShown: false }}
-          />
-          <MainStack.Screen
-            name="PostsScreen"
-            component={PostsScreen}
-            options={{ headerShown: false }}
-          />
-          <MainStack.Screen
-            name="ProfileScreen"
-            component={ProfileScreen}
-            options={{ headerShown: false }}
           />
         </MainStack.Navigator>
       </NavigationContainer>

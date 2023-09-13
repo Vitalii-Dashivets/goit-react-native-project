@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import BackImage from "../../Img/img1.png";
 
-export const RegistrationScreen = () => {
+const RegistrationScreen = () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
@@ -35,3 +35,5 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
   },
 });
+
+export default RegistrationScreen;

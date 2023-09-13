@@ -60,13 +60,13 @@ const styles = StyleSheet.create({
   text: {
     width: "100%",
     fontSize: 13,
-    fontFamily: "Roboto",
+    fontFamily: "Roboto-400",
     lineHeight: 18,
   },
   date: {
     marginTop: 8,
     fontSize: 10,
-    fontFamily: "Roboto",
+    fontFamily: "Roboto-400",
     color: "rgba(189, 189, 189, 1)",
   },
 });
