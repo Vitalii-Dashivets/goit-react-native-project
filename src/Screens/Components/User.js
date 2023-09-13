@@ -17,17 +17,6 @@ export const User = () => {
           <Text style={styles.email}>Email</Text>
         </View>
       </View>
-      {/* <View style={styles.box}>
-        <Pressable style={styles.icon}>
-          <GridIcon width={24} height={24} />
-        </Pressable>
-        <Pressable style={styles.button}>
-          <Union width={13} height={13} />
-        </Pressable>
-        <Pressable style={styles.icon}>
-          <UserIcon width={24} height={24} />
-        </Pressable>
-      </View> */}
     </View>
   );
 };
@@ -63,7 +52,7 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 13,
     // fontWeight: 700,
-    fontFamily: "Roboto-700",
+    fontFamily: "Roboto-500",
     lineHeight: 15,
   },
   email: {

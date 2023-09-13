@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   loadFotoText: {
     fontSize: 16,
-    fontFamily: "Roboto",
+    fontFamily: "Roboto-400",
     marginTop: 8,
     color: "#BDBDBD",
     marginBottom: 32,

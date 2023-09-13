@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import * as React from "react";
 
-import { Header } from "./Header";
+// import { Header } from "./Header";
 import { TabBarColor } from "../Components/TabBarComent";
 import { ContentBox } from "./ContentBox";
 import { Comments } from "./Comments";
@@ -9,7 +9,7 @@ import { Comments } from "./Comments";
 export const CommentsScreen = () => {
   return (
     <View style={styles.container}>
-      <Header style={styles.header}></Header>
+      {/* <Header style={styles.header}></Header> */}
       <ContentBox></ContentBox>
       <Comments></Comments>
       <TabBarColor style={styles.footer}></TabBarColor>

@@ -13,8 +13,10 @@ import {
 import * as React from "react";
 import { ContentBox } from "./ContentBox";
 import ArrowLeft from "../../Img/arrow-left.svg";
+import { useNavigation } from "@react-navigation/native";
 
-const CreatePostsScreen = ({ navigation }) => {
+const CreatePostsScreen = () => {
+  const navigation = useNavigation();
   React.useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (

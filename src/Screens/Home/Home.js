@@ -2,8 +2,10 @@ import { Pressable, StyleSheet, Text, View, ScrollView } from "react-native";
 import * as React from "react";
 import { ContentBoxHome } from "./ContentBoxHome";
 import Logout from "../../Img/log-out.svg";
+import { useNavigation } from "@react-navigation/native";
 
-const Home = ({ navigation }) => {
+const Home = () => {
+  const navigation = useNavigation();
   React.useEffect(() => {
     navigation.setOptions({
       headerRight: () => (

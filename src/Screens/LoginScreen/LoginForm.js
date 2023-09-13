@@ -74,7 +74,6 @@ const stylesLog = StyleSheet.create({
   title: {
     color: "black",
     fontSize: 36,
-    fontWeight: "bold",
     textAlign: "center",
     marginBottom: 16,
     fontFamily: "Roboto-500",
