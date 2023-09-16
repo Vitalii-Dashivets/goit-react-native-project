@@ -9,11 +9,20 @@ import {
   Platform,
 } from "react-native";
 import * as React from "react";
+import { useNavigation } from "@react-navigation/native";
 import NoFoto from "../../Img/Group 1.svg";
 import MapPin from "../../Img/map-pin.svg";
 import CommentsIcon from "../../Img/comentsIcon.svg";
 import LikesIcon from "../../Img/likesIcon.svg";
+
 export const PictureCard = () => {
+  const navigation = useNavigation();
+  const goToComments = () => {
+    navigation.navigate("Comments");
+  };
+  const goToMap = () => {
+    navigation.navigate("Map");
+  };
   return (
     <View style={styles.container}>
       <View style={styles.box}>
@@ -24,19 +33,19 @@ export const PictureCard = () => {
       <Text style={styles.title}>Имя фото</Text>
       <View style={styles.statistics}>
         <View style={styles.navigation}>
-          <View style={styles.commentsBox}>
+          <Pressable style={styles.commentsBox} onPress={goToComments}>
             <CommentsIcon style={styles.commentsIcon}></CommentsIcon>
             <Text>8</Text>
-          </View>
+          </Pressable>
           <View style={styles.commentsBox}>
             <LikesIcon style={styles.commentsLikesIcon}></LikesIcon>
             <Text>12</Text>
           </View>
         </View>
-        <View style={styles.navBox}>
-          <MapPin style={styles.mapPin}></MapPin>
+        <Pressable style={styles.navBox}>
+          <MapPin style={styles.mapPin} onPress={goToMap}></MapPin>
           <Text>Ukraine</Text>
-        </View>
+        </Pressable>
       </View>
     </View>
   );

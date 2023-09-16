@@ -1,4 +1,10 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import * as React from "react";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import GridIcon from "../../Img/grid.svg";
@@ -8,6 +14,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import PostsScreen from "../PostsScreen/PostsScreen";
 import CreatePostsScreen from "../CreatePostsScreen/CreatePostsScreen";
 import ProfileScreen from "../ProfileScreen/ProfileScreen";
+import ProfileNavStack from "./ProfileNavStack";
 import Logout from "../../Img/log-out.svg";
 import ArrowLeft from "../../Img/arrow-left.svg";
 
@@ -93,8 +100,8 @@ const TabBarAdd = () => {
       />
 
       <Tabs.Screen
-        name="ProfileScreen"
-        component={ProfileScreen}
+        name="ProfileNavStack"
+        component={ProfileNavStack}
         options={{
           headerShown: false,
           tabBarIcon: ({ color, size }) => <UserIcon />,
