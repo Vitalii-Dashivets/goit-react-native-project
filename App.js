@@ -2,7 +2,8 @@ import { StyleSheet, TouchableWithoutFeedback, Keyboard } from "react-native";
 import "react-native-gesture-handler";
 import RegistrationScreen from "./src/Screens/RegistrationScreen/RegistrationScreen";
 import LoginScreen from "./src/Screens/LoginScreen/LoginScreen";
-
+import CommentsScreen from "./src/Screens/CommentsScreen/CommentsScreen";
+import MapScreen from "./src/Screens/MapScreen/MapScreen";
 import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -25,14 +26,7 @@ export default function App() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <NavigationContainer>
-        <MainStack.Navigator
-          initialRouteName="Login"
-          // screenOptions={
-          //   {
-          //     // headerShown: false,
-          //   }
-          // }
-        >
+        <MainStack.Navigator initialRouteName="Login">
           <MainStack.Screen
             name="Registration"
             component={RegistrationScreen}
@@ -65,6 +59,16 @@ export default function App() {
               headerLeft: () => {},
               headerRight: () => <Logout title="Press me" color="#fff" />,
             })}
+          />
+          <MainStack.Screen
+            name="Comments"
+            component={CommentsScreen}
+            options={{ headerShown: false }}
+          />
+          <MainStack.Screen
+            name="Map"
+            component={MapScreen}
+            options={{ headerShown: true }}
           />
         </MainStack.Navigator>
       </NavigationContainer>

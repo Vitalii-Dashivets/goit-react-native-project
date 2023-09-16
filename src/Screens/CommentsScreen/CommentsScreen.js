@@ -6,7 +6,7 @@ import { TabBarColor } from "../Components/TabBarComent";
 import { ContentBox } from "./ContentBox";
 import { Comments } from "./Comments";
 
-export const CommentsScreen = () => {
+const CommentsScreen = () => {
   return (
     <View style={styles.container}>
       {/* <Header style={styles.header}></Header> */}
@@ -34,3 +34,4 @@ const styles = StyleSheet.create({
     // bottom: 0,
   },
 });
+export default CommentsScreen;

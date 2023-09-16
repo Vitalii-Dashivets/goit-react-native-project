@@ -7,33 +7,52 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
+  TouchableOpacity,
+  PermissionsAndroid,
 } from "react-native";
-import * as React from "react";
-import NoFoto from "../../Img/Group 1.svg";
-import MapPin from "../../Img/map-pin.svg";
+
+import React, { useState, useEffect, useRef } from "react";
+import Trash from "../../Img/trash-2.svg";
+import { CameraBox } from "../Components/CameraBox";
+import { PostForm } from "../Components/PostForm";
 
 export const ContentBox = () => {
+  const [location, setLocation] = useState(null);
+  const [fotoLink, setFotoLink] = useState(null);
+
+  const deletePhoto = () => {
+    setFotoLink(null);
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.box}>
+      {!fotoLink && (
         <View style={styles.fotobox}>
-          <NoFoto style={styles.noFoto} />
+          <CameraBox
+            setFotoLink={setFotoLink}
+            setLocation={setLocation}
+          ></CameraBox>
         </View>
+      )}
+      {fotoLink && (
+        <View style={styles.fotobox}>
+          <Image
+            source={{ uri: fotoLink }}
+            style={{ width: "100%", height: "100%" }}
+          ></Image>
+        </View>
+      )}
+      {!fotoLink ? (
         <Text style={styles.loadFotoText}>Завантажте фото</Text>
-      </View>
-      <KeyboardAvoidingView
-        behavior={Platform.OS == "ios" ? "padding" : "height"}
-      >
-        <TextInput style={styles.textInput} placeholder="Назва..." />
-        <View style={styles.mapInputBox}>
-          <MapPin style={styles.mapPinIcon}></MapPin>
-          <TextInput style={styles.textInputMap} placeholder="Місцевість..." />
-        </View>
+      ) : (
+        <Text style={styles.loadFotoText}></Text>
+      )}
 
-        <Pressable style={styles.button}>
-          <Text style={styles.btnText}>Опублікувати</Text>
-        </Pressable>
-      </KeyboardAvoidingView>
+      <PostForm fotoLink={fotoLink} setFotoLink={setFotoLink}></PostForm>
+
+      <Pressable style={[styles.buttonTrash]} onPress={deletePhoto}>
+        <Trash width={24} height={24} />
+      </Pressable>
     </View>
   );
 };
@@ -42,11 +61,9 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     width: "100%",
-    // height: "100%",
-    backgroundColor: "white",
-    // flexDirection: "row",
+    backgroundColor: "#FFFFFF",
     alignItems: "stretch",
-    justifyContent: "flex-start",
+    justifyContent: "space-between",
 
     borderColor: "rgba(0,0,0,0.3)",
     paddingLeft: 16,
@@ -61,22 +78,22 @@ const styles = StyleSheet.create({
     // width: 171,
     // height: 60,
     marginTop: 9,
-    alignItems: "flex-start",
+    alignItems: "stretch",
   },
   fotobox: {
     backgroundColor: "#F6F6F6",
     width: "100%",
     height: 240,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "stretch",
     borderWidth: 1,
     borderRadius: 8,
     borderColor: "#E8E8E8",
   },
-  noFoto: {
-    width: 60,
-    height: 60,
-  },
+  // noFoto: {
+  //   width: 60,
+  //   height: 60,
+  // },
   loadFotoText: {
     fontSize: 16,
     fontFamily: "Roboto-400",
@@ -84,56 +101,18 @@ const styles = StyleSheet.create({
     color: "#BDBDBD",
     marginBottom: 32,
   },
-  textInput: {
-    width: "100%",
-    height: 50,
-    marginTop: 16,
-    marginBottom: 16,
-    // marginLeft: "auto",
-    // marginRight: "auto",
-    borderBottomWidth: 1,
-    borderBottomColor: "#BDBDBD",
-    color: "#BDBDBD",
-    paddingLeft: 15,
-    fontSize: 16,
-  },
-  textInputMap: {
-    width: "100%",
-    height: 50,
-    marginTop: 16,
-    marginBottom: 16,
-    // marginLeft: "auto",
-    // marginRight: "auto",
-    borderBottomWidth: 1,
-    borderBottomColor: "#BDBDBD",
-    color: "#BDBDBD",
-    paddingLeft: 28,
-    fontSize: 16,
-  },
-  button: {
-    width: "100%",
+
+  buttonTrash: {
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginBottom: 2,
+    marginTop: "auto",
     backgroundColor: "#F6F6F6",
     paddingVertical: 16,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 16,
-    borderRadius: 27,
-  },
-  btnText: {
-    fontSize: 16,
-    color: "#BDBDBD",
-    fontFamily: "Roboto-400",
-  },
-  mapInputBox: {
-    position: "relative",
-    width: "100%",
-  },
-
-  mapPinIcon: {
-    position: "absolute",
-    width: 24,
-    height: 24,
-    bottom: 28,
-    left: 0,
+    borderRadius: 20,
+    width: 70,
+    height: 40,
   },
 });

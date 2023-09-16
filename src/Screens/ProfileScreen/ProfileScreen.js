@@ -15,13 +15,16 @@ import {
 import * as React from "react";
 import BtnAdd from "../../Img/Union1.svg";
 import { PictureCard } from "../Components/PictureCard";
+import { useNavigation } from "@react-navigation/native";
 import BackImage from "../../Img/img1.png";
 import Logout from "../../Img/log-out.svg";
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = () => {
+  const navigation = useNavigation();
   const onLogout = () => {
     navigation.navigate("Login");
   };
+
   return (
     <View style={styles.container}>
       <ImageBackground

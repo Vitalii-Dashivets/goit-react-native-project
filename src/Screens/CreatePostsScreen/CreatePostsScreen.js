@@ -10,7 +10,8 @@ import {
   Platform,
   SafeAreaView,
 } from "react-native";
-import * as React from "react";
+import React, { useState } from "react";
+
 import { ContentBox } from "./ContentBox";
 import ArrowLeft from "../../Img/arrow-left.svg";
 import { useNavigation } from "@react-navigation/native";
