@@ -14,23 +14,29 @@ import NoFoto from "../../Img/Group 1.svg";
 import MapPin from "../../Img/map-pin.svg";
 import CommentsIcon from "../../Img/comentsIcon.svg";
 import LikesIcon from "../../Img/likesIcon.svg";
+import { usePosts } from "../../hooks/usePosts";
 
 export const PictureCard = () => {
   const navigation = useNavigation();
+  const { posts } = usePosts();
+
   const goToComments = () => {
     navigation.navigate("Comments");
   };
   const goToMap = () => {
     navigation.navigate("Map");
   };
-  return (
+  return posts.map((post) => {
     <View style={styles.container}>
       <View style={styles.box}>
         <View style={styles.fotobox}>
-          <NoFoto style={styles.noFoto} />
+          <Image
+            source={{ uri: posts.data.photoURL }}
+            style={styles.noFoto}
+          ></Image>
         </View>
       </View>
-      <Text style={styles.title}>Имя фото</Text>
+      <Text style={styles.title}>{post.data.title}</Text>
       <View style={styles.statistics}>
         <View style={styles.navigation}>
           <Pressable style={styles.commentsBox} onPress={goToComments}>
@@ -44,11 +50,11 @@ export const PictureCard = () => {
         </View>
         <Pressable style={styles.navBox}>
           <MapPin style={styles.mapPin} onPress={goToMap}></MapPin>
-          <Text>Ukraine</Text>
+          <Text>posts.data.locationArea</Text>
         </Pressable>
       </View>
-    </View>
-  );
+    </View>;
+  });
 };
 
 const styles = StyleSheet.create({

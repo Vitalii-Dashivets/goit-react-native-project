@@ -1,28 +1,36 @@
-import { StyleSheet, Text, TextInput, View, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Pressable,
+  TouchableOpacity,
+} from "react-native";
 import * as React from "react";
+import { login } from "../../redux/auth/authOperations";
+import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../../config";
 
 export const LoginForm = () => {
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [state, dispatch] = React.useReducer(reducer, {
-    email: email,
-    password: password,
-  });
+  const [email, setEmail] = React.useState(null);
+  const [password, setPassword] = React.useState(null);
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  React.useEffect(() => {
-    console.log(state);
-  }, [state]);
-  function reducer(state, action) {
-    if (action.type === "submitForm") {
-      return { ...state, email: email, password: password };
-    }
-  }
   const onLogin = () => {
-    navigation.navigate("Home");
-    return dispatch({ type: "submitForm" });
+    if (!email || !password) {
+      return;
+    }
+    try {
+      dispatch(login({ email: email, password: password }));
+      navigation.navigate("Home");
+      setEmail("");
+      setPassword("");
+    } catch (e) {}
   };
+
   return (
     <View style={stylesLog.box}>
       <Text style={stylesLog.title}>Увійти</Text>
@@ -40,9 +48,18 @@ export const LoginForm = () => {
         onChangeText={setPassword}
         placeholder="Пароль"
       />
-      <Pressable style={stylesLog.button} onPress={onLogin}>
+      <TouchableOpacity
+        style={stylesLog.button}
+        // style={({ pressed }) => [
+        //   {
+        //     backgroundColor: pressed ? "#BF6C00" : "#FF6C00",
+        //   },
+        //   stylesLog.button,
+        // ]}
+        onPress={onLogin}
+      >
         <Text style={stylesLog.btnText}>Увійти</Text>
-      </Pressable>
+      </TouchableOpacity>
       <Pressable onPress={() => navigation.navigate("Registration")}>
         <Text style={stylesLog.text}>Немає акаунту? Зареєструватися</Text>
       </Pressable>

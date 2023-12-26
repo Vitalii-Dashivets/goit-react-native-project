@@ -3,12 +3,23 @@ import * as React from "react";
 import { User } from "../Components/User";
 import Logout from "../../Img/log-out.svg";
 import { useNavigation } from "@react-navigation/native";
+import { logout } from "../../redux/auth/authOperations";
+import { useDispatch } from "react-redux";
+
 const PostsScreen = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
+
   React.useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Logout onPress={() => navigation.navigate("Login")} />
+        <Logout
+          onPress={() => {
+            dispatch(logout());
+
+            navigation.navigate("Login");
+          }}
+        />
       ),
     });
   }, [navigation]);

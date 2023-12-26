@@ -18,9 +18,14 @@ import { PictureCard } from "../Components/PictureCard";
 import { useNavigation } from "@react-navigation/native";
 import BackImage from "../../Img/img1.png";
 import Logout from "../../Img/log-out.svg";
+import { AvatarBox } from "../Components/AvatarBox";
+import { auth } from "../../../config";
+import { useAuth } from "../../hooks/useAuth";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
+  const { displayName, avatarUrl } = useAuth();
+
   const onLogout = () => {
     navigation.navigate("Login");
   };
@@ -35,22 +40,14 @@ const ProfileScreen = () => {
         <ScrollView contentContainerStyle={styles.containerScroll}>
           <View style={styles.box} removeClippedSubviews={false}>
             <View style={styles.imageContainer}>
-              <View style={styles.imageBox}>
-                <Image
-                  source={{ uri: "https://reactjs.org/logo-og.png" }}
-                  style={styles.image}
-                ></Image>
-                <Pressable style={styles.btnAdd}>
-                  <BtnAdd width={13} height={13} />
-                </Pressable>
-              </View>
+              <AvatarBox avatarUrl={avatarUrl} />
             </View>
             <View style={styles.logoutContainer}>
               <Pressable onPress={onLogout}>
                 <Logout></Logout>
               </Pressable>
             </View>
-            <Text style={styles.title}>Ім'я Прізвище</Text>
+            <Text style={styles.title}>{displayName}</Text>
             <View style={styles.pictureContainer}>
               <PictureCard></PictureCard>
               <PictureCard></PictureCard>

@@ -8,8 +8,32 @@ import {
   Keyboard,
 } from "react-native";
 import BackImage from "../../Img/img1.png";
+import { useNavigation } from "@react-navigation/native";
+import { refreshUser } from "../../redux/auth/authOperations";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../../config";
+import { useDispatch } from "react-redux";
 
 const LoginScreen = () => {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      return;
+    }
+    const payload = {
+      displayName: user.displayName,
+      email: user.email,
+      photoURL: user.photoURL,
+      uid: user.uid,
+    };
+
+    dispatch(refreshUser(payload));
+
+    navigation.navigate("Home");
+  });
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>

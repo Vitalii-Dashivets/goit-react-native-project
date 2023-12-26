@@ -1,15 +1,4 @@
-import {
-  Image,
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  KeyboardAvoidingView,
-  Platform,
-  TouchableOpacity,
-  PermissionsAndroid,
-} from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 import React, { useState, useEffect, useRef } from "react";
 import Trash from "../../Img/trash-2.svg";
@@ -48,7 +37,11 @@ export const ContentBox = () => {
         <Text style={styles.loadFotoText}></Text>
       )}
 
-      <PostForm fotoLink={fotoLink} setFotoLink={setFotoLink}></PostForm>
+      <PostForm
+        fotoLink={fotoLink}
+        location={location}
+        setFotoLink={setFotoLink}
+      ></PostForm>
 
       <Pressable style={[styles.buttonTrash]} onPress={deletePhoto}>
         <Trash width={24} height={24} />
