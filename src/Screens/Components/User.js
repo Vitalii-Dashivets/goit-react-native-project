@@ -1,20 +1,18 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import * as React from "react";
 
-import GridIcon from "../../Img/grid.svg";
-import UserIcon from "../../Img/user.svg";
-import Union from "../../Img/Union2.svg";
+import { useAuth } from "../../hooks/useAuth";
+
 export const User = () => {
+  const { email, displayName, avatarUrl } = useAuth();
+
   return (
     <View style={styles.container}>
       <View style={styles.box}>
-        <Image
-          source={{ uri: "https://reactjs.org/logo-og.png" }}
-          style={styles.image}
-        ></Image>
+        <Image source={{ uri: avatarUrl }} style={styles.image}></Image>
         <View style={styles.textBox}>
-          <Text style={styles.name}>Name</Text>
-          <Text style={styles.email}>Email</Text>
+          <Text style={styles.name}>{displayName}</Text>
+          <Text style={styles.email}>{email}</Text>
         </View>
       </View>
     </View>
@@ -64,7 +62,9 @@ const styles = StyleSheet.create({
   image: {
     width: 60,
     height: 60,
-
+    // backgroundColor: "grey",
     borderRadius: 16,
+    borderWidth: 1,
+    borderColor: "black",
   },
 });

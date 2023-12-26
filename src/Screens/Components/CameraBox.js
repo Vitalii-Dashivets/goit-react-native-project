@@ -27,6 +27,7 @@ export const CameraBox = ({ setFotoLink, setLocation }) => {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
       };
+      console.log(coords);
       setLocation(coords);
     })();
   }, []);

@@ -7,25 +7,50 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
-  TouchableOpacity,
-  PermissionsAndroid,
 } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import MapPin from "../../Img/map-pin.svg";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { addPost } from "../../redux/posts/postsOperations";
+import { useAuth } from "../../hooks/useAuth";
 
-export const PostForm = ({ fotoLink, setFotoLink }) => {
+export const PostForm = ({ fotoLink, setFotoLink, location }) => {
   const [name, setName] = useState("");
   const [locationArea, setLocationArea] = useState("");
   const [disable, setDisable] = useState(true);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const user = useAuth();
 
-  const publicatePost = () => {
-    navigation.navigate("PostsScreen");
-    setName("");
-    setLocationArea(null);
-    setFotoLink(null);
-    setDisable(true);
+  const publicatePost = async () => {
+    try {
+      const data = {
+        displayName: user.displayName,
+        file: fotoLink,
+        owner: user.uid,
+        title: name,
+        location: location,
+        locationArea: locationArea,
+      };
+      dispatch(addPost(data));
+      // const imageRef = await uploadFileToStorage({
+      //   name: name,
+      //   file: fotoLink,
+      // });
+      // await writeDataToFirestore({
+      //   owner: user.uid,
+      //   photoURL: imageRef,
+      //   title: name,
+      //   location: location,
+      //   locationArea: locationArea,
+      // });
+      navigation.navigate("PostsScreen");
+      setName("");
+      setLocationArea(null);
+      setFotoLink(null);
+      setDisable(true);
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -57,11 +82,18 @@ export const PostForm = ({ fotoLink, setFotoLink }) => {
       </View>
 
       <Pressable
-        style={[
-          styles.buttonPost,
+        style={({ pressed }) => [
+          //   {
+          //     backgroundColor: pressed ? "rgb(210, 230, 255)" : "#FF6C00",
+          //   },
           {
-            backgroundColor: fotoLink ? "#FF6C00" : "#F6F6F6",
+            backgroundColor: fotoLink
+              ? pressed
+                ? "#BF6C00"
+                : "#FF6C00"
+              : "#F6F6F6",
           },
+          styles.buttonPost,
         ]}
         onPress={publicatePost}
         disabled={disable}

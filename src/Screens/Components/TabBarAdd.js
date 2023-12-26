@@ -35,7 +35,7 @@ const TabBarAdd = () => {
           paddingBottom: 34,
           paddingLeft: 82,
           paddingRight: 81,
-          alignItems: "flex-start",
+          alignItems: "center",
         },
         tabBarVisible: false,
         tabBarShowLabel: false,
@@ -66,7 +66,10 @@ const TabBarAdd = () => {
           },
 
           headerRight: () => <Logout title="Press me" color="#fff" />,
-          tabBarIcon: ({ color, size }) => <GridIcon />,
+          tabBarButton: (props) => <TouchableOpacity {...props} />,
+          tabBarIcon: ({ color, size }) => (
+            <GridIcon style={{ marginRight: 31, justifyContent: "center" }} />
+          ),
         }}
       />
 
@@ -90,8 +93,8 @@ const TabBarAdd = () => {
           },
           tabBarStyle: { display: "none" },
           headerLeft: () => <ArrowLeft title="Press me" color="#fff" />,
-
-          tabBarIcon: ({ color, size }) => (
+          tabBarButton: (props) => <TouchableOpacity {...props} />,
+          tabBarIcon: () => (
             <View style={styles.button}>
               <Union />
             </View>
@@ -104,7 +107,10 @@ const TabBarAdd = () => {
         component={ProfileNavStack}
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, size }) => <UserIcon />,
+          tabBarButton: (props) => <TouchableOpacity {...props} />,
+          tabBarIcon: ({ color, size }) => (
+            <UserIcon style={{ marginLeft: 31, justifyContent: "center" }} />
+          ),
         }}
       />
     </Tabs.Navigator>

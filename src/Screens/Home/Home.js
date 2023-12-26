@@ -13,6 +13,7 @@ const Home = () => {
       ),
     });
   }, [navigation]);
+
   return (
     <View style={styles.container}>
       <ScrollView>

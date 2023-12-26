@@ -7,46 +7,53 @@ import {
   Pressable,
   KeyboardAvoidingView,
   Platform,
+  TouchableOpacity,
 } from "react-native";
-
 import * as React from "react";
-import BtnAdd from "../../Img/Union1.svg";
+import { AvatarBox } from "../Components/AvatarBox";
 import { useNavigation } from "@react-navigation/native";
+import { register } from "../../redux/auth/authOperations";
+import { useDispatch } from "react-redux";
+import { registerDB } from "../../firebaseOperations/firebaseOperations";
 
 export const RegistrationForm = () => {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [state, dispatch] = React.useReducer(reducer, {
-    name: name,
-    email: email,
-    password: password,
-  });
+  const [avatarUrl, setAvatarUrl] = React.useState(
+    "https://reactjs.org/logo-og.png"
+  );
   const navigation = useNavigation();
-  React.useEffect(() => {
-    console.log(state);
-  }, [state]);
-  function reducer(state, action) {
-    if (action.type === "submitForm") {
-      return { name: name, email: email, password: password };
+  const dispatch = useDispatch();
+
+  const onRegister = async () => {
+    if (name === "" || email === "" || password === "") {
+      return;
     }
-  }
-  const onRegister = () => {
-    navigation.navigate("Home");
-    return dispatch({ type: "submitForm" });
+    try {
+      dispatch(
+        register({
+          name: name,
+          email: email,
+          password: password,
+          avatarUrl: avatarUrl,
+        })
+      );
+      navigation.navigate("Login");
+      setName("");
+      setEmail("");
+      setPassword("");
+      return;
+    } catch (error) {
+      console.log("Something went wrong: ", error.message);
+    }
+    return;
   };
+
   return (
     <View style={stylesReg.box}>
       <View style={stylesReg.imageContainer}>
-        <View style={stylesReg.imageBox}>
-          <Image
-            source={{ uri: "https://reactjs.org/logo-og.png" }}
-            style={stylesReg.image}
-          ></Image>
-          <Pressable style={stylesReg.btnAdd}>
-            <BtnAdd width={13} height={13} />
-          </Pressable>
-        </View>
+        <AvatarBox avatarUrl={avatarUrl} setAvatarUrl={setAvatarUrl} />
       </View>
 
       <Text style={stylesReg.title}>Реєстрація</Text>
@@ -76,9 +83,19 @@ export const RegistrationForm = () => {
             placeholder="Пароль"
           />
 
-          <Pressable style={stylesReg.button} onPress={onRegister}>
+          <TouchableOpacity
+            style={stylesReg.button}
+            // style={({ pressed }) => [
+            //   {
+            //     backgroundColor: pressed ? "#BF6C00" : "#FF6C00",
+            //   },
+            //   stylesReg.button,
+            // ]}
+
+            onPress={onRegister}
+          >
             <Text style={stylesReg.btnText}>Зареєструватися</Text>
-          </Pressable>
+          </TouchableOpacity>
         </KeyboardAvoidingView>
       </View>
       <Pressable onPress={() => navigation.navigate("Login")}>
@@ -179,4 +196,3 @@ const stylesReg = StyleSheet.create({
     height: 13,
   },
 });
-

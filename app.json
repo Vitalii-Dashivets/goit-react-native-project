@@ -11,6 +11,8 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins": ["expo-image-picker"],
+
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
@@ -23,6 +25,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
-  }
+    },
+    "sdkVersion": "49.0.0"
+  },
+  "name": "goit-react-native-project"
 }
