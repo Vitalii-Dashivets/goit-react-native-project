@@ -30,9 +30,10 @@ export const registerDB = async ({ email, password }) => {
       photoURL: auth.currentUser.photoURL,
       uid: auth.currentUser.uid,
     };
-    return;
+    return payload;
   } catch (error) {
-    throw new Error(err.message);
+    console.log(error.message);
+    throw new Error(error.message);
   }
 };
 
@@ -48,6 +49,7 @@ export const loginDB = async ({ email, password }) => {
 
     return;
   } catch (error) {
+    console.log(error.message);
     throw new Error(err.message);
   }
 };

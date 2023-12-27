@@ -14,17 +14,17 @@ export const register = createAsyncThunk(
   "auth/register",
   async (credentials, thunkAPI) => {
     try {
-      console.log("FILE:   ", credentials.avatarUrl);
-      await registerDB({
+      const newUser = await registerDB({
         email: credentials.email,
         password: credentials.password,
       });
-
+      console.log("Register OK");
       // const photoName = auth.currentUser.uid;
-      const id = user.uid;
+      let id = auth.currentUser.uid;
+      console.log("newUser:", newUser);
       const imgRef = await uploadFileToStorage({
         collection: "avatars",
-        name: id,
+        name: newUser.uid,
         file: credentials.avatarUrl,
       });
       console.log(imgRef);
@@ -41,6 +41,7 @@ export const register = createAsyncThunk(
       };
       return payload;
     } catch (error) {
+      console.log(error.message);
       return thunkAPI.rejectWithValue(error.message);
     }
   }

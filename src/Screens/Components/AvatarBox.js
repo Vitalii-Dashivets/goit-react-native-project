@@ -15,9 +15,14 @@ export const AvatarBox = ({ avatarUrl, setAvatarUrl }) => {
     });
 
     if (!result.canceled) {
-      setAvatarUrl(result.assets[0].uri);
+      const path = result.assets[0].uri;
+      //const fileData = await RNFetchBlob.fs.readFile(path, "base64");
+      setAvatarUrl(path);
+      //.then((response) => setAvatarUrl(response));
     }
   };
+  // setAvatarUrl(result.assets[0].uri);
+
   return (
     <View style={stylesReg.imageBox}>
       <Image source={{ uri: avatarUrl }} style={stylesReg.image}></Image>
