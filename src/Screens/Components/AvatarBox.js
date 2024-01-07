@@ -1,8 +1,6 @@
 import { Image, StyleSheet, View, Pressable } from "react-native";
 import BtnAdd from "../../Img/Union1.svg";
-
 import * as ImagePicker from "expo-image-picker";
-import { useState } from "react";
 
 export const AvatarBox = ({ avatarUrl, setAvatarUrl }) => {
   const pickImage = async () => {
@@ -16,12 +14,9 @@ export const AvatarBox = ({ avatarUrl, setAvatarUrl }) => {
 
     if (!result.canceled) {
       const path = result.assets[0].uri;
-      //const fileData = await RNFetchBlob.fs.readFile(path, "base64");
       setAvatarUrl(path);
-      //.then((response) => setAvatarUrl(response));
     }
   };
-  // setAvatarUrl(result.assets[0].uri);
 
   return (
     <View style={stylesReg.imageBox}>

@@ -12,15 +12,15 @@ import * as React from "react";
 import NoFoto from "../../Img/Group 1.svg";
 import MapPin from "../../Img/map-pin.svg";
 
-export const MyComment = () => {
+export const MyComment = ({ comment, currentUser }) => {
   return (
     <View style={styles.container}>
       <View style={styles.box}>
-        <Text style={styles.text}>sdagfgsfdg6565sdgdfgsdffgsgag</Text>
-        <Text style={styles.date}>{new Date().toLocaleDateString()}</Text>
+        <Text style={styles.text}>{comment.comment}</Text>
+        <Text style={styles.date}>{comment.createdAt}</Text>
       </View>
       <Image
-        source={{ uri: "https://reactjs.org/logo-og.png" }}
+        source={{ uri: currentUser.data.photoURL }}
         style={styles.image}
       ></Image>
     </View>
@@ -31,12 +31,12 @@ const styles = StyleSheet.create({
   container: {
     // height: "100%",
     // flexBasis: "100%",
-    width: "100%",
+    //width: "100%",
     backgroundColor: "white",
     flexDirection: "row",
     // alignItems: "stretch",
     justifyContent: "flex-end",
-    alignItems: "stretch",
+    //alignItems: "stretch",
     // borderColor: "rgba(0,0,0,0.3)",
   },
   box: {

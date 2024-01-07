@@ -1,54 +1,67 @@
-import { collection, addDoc, getDocs, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  addDoc,
+  getDocs,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "../../config";
 
-export const writeDataToFirestore = async ({
-  owner,
-  photoURL,
-  title,
-  location,
-  locationArea,
-}) => {
+export const writeDataToFirestore = async (data, collect) => {
   try {
-    const docRef = await addDoc(collection(db, "posts"), {
-      owner,
-      photoURL,
-      title,
-      location,
-      locationArea,
-    });
-    console.log("Document written with ID: ", docRef.id);
+    const docRef = await addDoc(collection(db, `${collect}`), data);
+    //console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
     throw new Error(err.message);
   }
 };
 
-export const getDataFromFirestore = async () => {
+export const getDataFromFirestore = async (collect) => {
   try {
-    const snapshot = await getDocs(collection(db, "posts"));
+    const q = query(collection(db, `${collect}`));
+    const snapshot = await getDocs(q);
+
     // Перевіряємо у консолі отримані дані
 
-    const posts = [];
+    const data = [];
     snapshot.forEach((doc) => {
-      posts.push({ id: doc.id, data: doc.data() });
-      console.log(`${doc.id} =>`, doc.data());
+      data.push({ id: doc.id, data: doc.data() });
+      //console.log(`${doc.id} =>`, doc.data());
     });
-    return posts;
+    return data;
   } catch (error) {
     console.log(error);
     throw new Error(err.message);
   }
 };
+export const getDataByOwnerFromFirestore = async (collect, owner) => {
+  try {
+    const q = query(collection(db, `${collect}`), where("owner", "==", owner));
+    const snapshot = await getDocs(q);
+    // Перевіряємо у консолі отримані дані
 
-export const updateDataInFirestore = async (collectionName, docId) => {
+    const data = [];
+    snapshot.forEach((doc) => {
+      data.push({ id: doc.id, data: doc.data() });
+      //console.log(`${doc.id} =>`, doc.data());
+    });
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(err.message);
+  }
+};
+export const updateDataInFirestore = async (collectionName, docId, data) => {
   try {
     const ref = doc(db, collectionName, docId);
 
-    await updateDoc(ref, {
-      age: 25,
-    });
+    await updateDoc(ref, data);
     console.log("document updated");
   } catch (error) {
-    throw new Error(err.message);
+    throw new Error(error.message);
   }
 };

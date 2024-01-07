@@ -2,15 +2,21 @@ import { Pressable, StyleSheet, Text, View, ScrollView } from "react-native";
 import * as React from "react";
 import { User } from "../Components/User";
 import Logout from "../../Img/log-out.svg";
+import { PictureCard } from "../Components/PictureCard";
 import { useNavigation } from "@react-navigation/native";
 import { logout } from "../../redux/auth/authOperations";
 import { useDispatch } from "react-redux";
-import { useAuth } from "../../hooks/useAuth";
+import { usePosts } from "../../hooks/usePosts";
+import { useIsFocused } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
+import { getPosts } from "../../redux/posts/postsOperations";
 
-const PostsScreen = () => {
+const UserPostsScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { usersList } = useAuth();
+  const { params } = useRoute();
+  const isFocused = useIsFocused();
+  const { posts } = usePosts();
 
   React.useEffect(() => {
     navigation.setOptions({
@@ -26,25 +32,25 @@ const PostsScreen = () => {
     });
   }, [navigation]);
 
+  React.useEffect(() => {
+    dispatch(getPosts(params.data.owner));
+  }, [isFocused]);
+
   return (
     <ScrollView style={styles.container}>
-      {usersList.map((item) => {
-        return (
-          <View style={styles.box} key={item.id}>
-            <Pressable
-              onPress={() => {
-                navigation.navigate("UserPostsScreen", item);
-              }}
-            >
-              <User
-                displayName={item.data.name}
-                avatarUrl={item.data.photoURL}
-                email={item.data.email}
-              ></User>
-            </Pressable>
-          </View>
-        );
-      })}
+      <View style={styles.box}>
+        <User
+          displayName={params.data.name}
+          avatarUrl={params.data.photoURL}
+          email={params.data.email}
+        ></User>
+
+        <View style={styles.pictureContainer}>
+          {posts.map((item) => {
+            return <PictureCard key={item.id} post={item}></PictureCard>;
+          })}
+        </View>
+      </View>
     </ScrollView>
   );
 };
@@ -62,6 +68,12 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 16,
     paddingTop: 32,
+    paddingBottom: 32,
+  },
+  pictureContainer: {
+    width: "100%",
+    marginTop: 33,
+    gap: 32,
   },
 });
-export default PostsScreen;
+export default UserPostsScreen;

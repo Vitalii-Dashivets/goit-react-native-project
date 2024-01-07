@@ -1,41 +1,39 @@
-import {
-  ref,
-  getDownloadURL,
-  uploadBytesResumable,
-  uploadBytes,
-} from "firebase/storage";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { storage } from "../../config";
-// import dataURLtoBlob from "dataurl-to-blob";
-import * as FileSystem from "expo-file-system";
-import { Buffer } from "buffer";
 
 export const uploadFileToStorage = async ({ collection, name, file }) => {
+  if (file === "https://reactjs.org/logo-og.png") {
+    return;
+  }
   try {
     const metadata = {
-      contentType: "image/jpg",
+      contentType: "image/jpeg",
     };
-    console.log("FILE", file);
-    const imageRef = ref(storage, `${collection}/${name}.jpg`);
 
-    // await fetch(file)
-    //   .then((res) => res.blob())
-    //   .then((response) => {
-    //     newFile = response;
-    //   });
-    const newFile = await FileSystem.readAsStringAsync(file, {
-      EncodingType: "base64",
+    const imageRef = ref(storage, `${collection}/${name}.jpeg`);
+
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function (e) {
+        console.log(e);
+        reject(new TypeError("Network request failed"));
+      };
+      xhr.responseType = "blob";
+      xhr.open("GET", file, true);
+      xhr.send(null);
     });
-    const buffer = Buffer.from(newFile, "base64");
-    const blob = new Blob([buffer], { type: "[image/jpg]" });
-
     await uploadBytes(imageRef, blob, metadata).then((snapshot) => {
-      console.log("Uploaded a blob or file!");
+      //console.log("Uploaded a blob or file!");
     });
+    blob.close();
+    const url = await getDownloadURL(imageRef);
 
-    const url = getDownloadURL(imageRef);
     return url;
-  } catch (err) {
-    console.log(err.message);
-    throw new Error(err.message);
+  } catch (error) {
+    console.log(error.message);
+    throw new Error(error.message);
   }
 };

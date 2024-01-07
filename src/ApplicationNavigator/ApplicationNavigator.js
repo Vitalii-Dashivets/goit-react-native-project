@@ -3,6 +3,7 @@ import RegistrationScreen from "../Screens/RegistrationScreen/RegistrationScreen
 import LoginScreen from "../Screens/LoginScreen/LoginScreen";
 import CommentsScreen from "../Screens/CommentsScreen/CommentsScreen";
 import MapScreen from "../Screens/MapScreen/MapScreen";
+import UserPostsScreen from "../Screens/UserPostsScreen/UserPostsScreen";
 import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -69,6 +70,29 @@ export default function ApplicationNavigator() {
             name="Map"
             component={MapScreen}
             options={{ headerShown: true }}
+          />
+          <MainStack.Screen
+            name="UserPostsScreen"
+            component={UserPostsScreen}
+            options={() => ({
+              headerShown: true,
+              headerTitle: "Публікації",
+              headerStyle: {
+                backgroundColor: "white",
+                height: 83,
+                borderBottomWidth: 1,
+              },
+              headerRightContainerStyle: { right: 10 },
+              headerTitleAlign: "center",
+              headerTintColor: "black",
+              headerTitleStyle: {
+                fontSize: 17,
+                fontFamily: "Roboto-500",
+                alignItems: "center",
+              },
+              headerLeft: () => {},
+              headerRight: () => <Logout title="Press me" color="#fff" />,
+            })}
           />
         </MainStack.Navigator>
       </NavigationContainer>

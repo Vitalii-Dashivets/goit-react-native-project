@@ -12,12 +12,16 @@ import * as React from "react";
 import NoFoto from "../../Img/Group 1.svg";
 import MapPin from "../../Img/map-pin.svg";
 
-export const ContentBox = () => {
+export const ContentBox = ({ post }) => {
   return (
     <View style={styles.container}>
       <View style={styles.box}>
         <View style={styles.fotobox}>
-          <NoFoto style={styles.noFoto} />
+          <Image
+            source={{ uri: post.data.photoURL }}
+            style={styles.noFoto}
+          ></Image>
+          {/* <NoFoto style={styles.noFoto} /> */}
         </View>
       </View>
     </View>
@@ -28,10 +32,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: "100%",
-    // height: "100%",
+    //height: "200",
     backgroundColor: "white",
     // flexDirection: "row",
-    alignItems: "stretch",
+    //alignItems: "stretch",
     justifyContent: "flex-start",
 
     borderColor: "rgba(0,0,0,0.3)",
@@ -39,6 +43,7 @@ const styles = StyleSheet.create({
     paddingRight: 16,
     paddingTop: 32,
     paddingBottom: 32,
+    //marginBottom: 50,
   },
   box: {
     width: "100%",
@@ -58,10 +63,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     borderColor: "#E8E8E8",
+    overflow: "hidden",
   },
   noFoto: {
-    width: 60,
-    height: 60,
+    width: "100%",
+    height: "100%",
   },
   loadFotoText: {
     fontSize: 16,

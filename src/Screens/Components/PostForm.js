@@ -14,11 +14,13 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { addPost } from "../../redux/posts/postsOperations";
 import { useAuth } from "../../hooks/useAuth";
+import * as Location from "expo-location";
 
 export const PostForm = ({ fotoLink, setFotoLink, location }) => {
   const [name, setName] = useState("");
   const [locationArea, setLocationArea] = useState("");
   const [disable, setDisable] = useState(true);
+  const [adress, setAdress] = useState("");
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const user = useAuth();
@@ -31,20 +33,10 @@ export const PostForm = ({ fotoLink, setFotoLink, location }) => {
         owner: user.uid,
         title: name,
         location: location,
-        locationArea: locationArea,
+        locationArea: adress,
       };
       dispatch(addPost(data));
-      // const imageRef = await uploadFileToStorage({
-      //   name: name,
-      //   file: fotoLink,
-      // });
-      // await writeDataToFirestore({
-      //   owner: user.uid,
-      //   photoURL: imageRef,
-      //   title: name,
-      //   location: location,
-      //   locationArea: locationArea,
-      // });
+
       navigation.navigate("PostsScreen");
       setName("");
       setLocationArea(null);
@@ -56,9 +48,28 @@ export const PostForm = ({ fotoLink, setFotoLink, location }) => {
   useEffect(() => {
     if (fotoLink) {
       setDisable(false);
-      console.log("disable:", disable);
+      //console.log("disable:", disable);
     }
   }, [fotoLink]);
+
+  useEffect(() => {
+    //console.log(location);
+    async function getAdress(coord) {
+      let data = await Location.reverseGeocodeAsync(coord);
+
+      let adressString = `${data[0].country},${data[0].city}`;
+      return adressString;
+    }
+    if (location.latitude !== null) {
+      getAdress(location)
+        .then((res) => {
+          // console.log(res);
+          setAdress(res);
+        })
+        .catch((error) => console.log(error));
+    }
+  }, [location]);
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS == "ios" ? "padding" : "height"}
@@ -76,16 +87,13 @@ export const PostForm = ({ fotoLink, setFotoLink, location }) => {
           style={styles.textInputMap}
           placeholder="Місцевість..."
           placeholderTextColor="#BDBDBD"
-          value={locationArea}
+          value={adress}
           onChangeText={setLocationArea}
         />
       </View>
 
       <Pressable
         style={({ pressed }) => [
-          //   {
-          //     backgroundColor: pressed ? "rgb(210, 230, 255)" : "#FF6C00",
-          //   },
           {
             backgroundColor: fotoLink
               ? pressed

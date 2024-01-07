@@ -12,16 +12,16 @@ import * as React from "react";
 import NoFoto from "../../Img/Group 1.svg";
 import MapPin from "../../Img/map-pin.svg";
 
-export const OneComment = () => {
+export const OneComment = ({ comment, currentUser }) => {
   return (
     <View style={styles.container}>
       <Image
-        source={{ uri: "https://reactjs.org/logo-og.png" }}
+        source={{ uri: currentUser.data.photoURL }}
         style={styles.image}
       ></Image>
       <View style={styles.box}>
-        <Text style={styles.text}>sdagfgsfdg6565sdgdfgsdffgsgag</Text>
-        <Text style={styles.date}>{new Date().toLocaleDateString()}</Text>
+        <Text style={styles.text}>{comment.comment}</Text>
+        <Text style={styles.date}>{comment.createdAt}</Text>
       </View>
     </View>
   );
@@ -29,24 +29,27 @@ export const OneComment = () => {
 
 const styles = StyleSheet.create({
   container: {
+    padding: 16,
+
     // height: "100%",
-    // flexBasis: "100%",
+    //flexBasis: "100%",
     width: "100%",
     backgroundColor: "white",
     flexDirection: "row",
     // alignItems: "stretch",
     justifyContent: "flex-start",
-    alignItems: "stretch",
+    //alignItems: "stretch",
     // borderColor: "rgba(0,0,0,0.3)",
   },
   box: {
-    flexGrow: 1,
+    flex: 1,
     justifyContent: "space-between",
     backgroundColor: "rgba(0,0,0,0.03)",
     // width: "inherit",
     // height: 60,
+    width: "100%",
     padding: 16,
-    marginLeft: 16,
+    //marginLeft: 16,
     alignItems: "flex-end",
     borderTopRightRadius: 6,
     borderBottomLeftRadius: 6,
@@ -58,7 +61,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
   },
   text: {
-    width: "100%",
+    maxWidth: "100%",
     fontSize: 13,
     fontFamily: "Roboto-400",
     lineHeight: 18,

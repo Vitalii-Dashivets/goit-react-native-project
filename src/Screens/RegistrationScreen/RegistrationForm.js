@@ -15,14 +15,14 @@ import { useNavigation } from "@react-navigation/native";
 import { register } from "../../redux/auth/authOperations";
 import { useDispatch } from "react-redux";
 import { registerDB } from "../../firebaseOperations/firebaseOperations";
+import { useAuth } from "../../hooks/useAuth";
 
 export const RegistrationForm = () => {
+  const { user } = useAuth();
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [avatarUrl, setAvatarUrl] = React.useState(
-    "https://reactjs.org/logo-og.png"
-  );
+  const [avatarUrl, setAvatarUrl] = React.useState(user.avatarUrl);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 

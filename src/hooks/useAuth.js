@@ -1,6 +1,10 @@
 import { useSelector } from "react-redux";
 
-import { selectUser, selectIsLoading } from "../redux/auth/authSelectors";
+import {
+  selectUser,
+  selectIsLoading,
+  selectUsersList,
+} from "../redux/auth/authSelectors";
 
 export const useAuth = () => {
   const user = useSelector(selectUser);
@@ -9,5 +13,6 @@ export const useAuth = () => {
   const email = user.email;
   const avatarUrl = user.avatarUrl;
   const isLoading = useSelector(selectIsLoading);
-  return { displayName, uid, email, avatarUrl, isLoading };
+  const usersList = useSelector(selectUsersList);
+  return { displayName, uid, email, avatarUrl, isLoading, user, usersList };
 };
