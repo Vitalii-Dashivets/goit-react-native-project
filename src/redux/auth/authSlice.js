@@ -10,6 +10,7 @@ const initialState = {
   token: "",
   isLoggedIn: false,
   isLoading: false,
+  usersList: [],
 };
 
 const authSlice = createSlice({
@@ -28,6 +29,7 @@ const authSlice = createSlice({
         // state.token = action.payload.stsTokenManager.accessToken;
         state.isLoggedIn = true;
         state.isLoading = false;
+        state.usersList = action.payload.usersList;
       })
       .addCase(register.rejected, (state) => {
         state.isLoading = false;
@@ -44,6 +46,7 @@ const authSlice = createSlice({
         // state.token = action.payload.stsTokenManager.accessToken;
         state.isLoggedIn = true;
         state.isLoading = false;
+        state.usersList = action.payload.usersList;
       })
       .addCase(login.rejected, (state) => {
         state.isLoading = false;
@@ -56,8 +59,10 @@ const authSlice = createSlice({
         state.user.displayName = "";
         state.user.uid = "";
         state.token = "";
+        state.user.avatarUrl = "https://reactjs.org/logo-og.png";
         state.isLoggedIn = false;
         state.isLoading = false;
+        state.usersList = [];
       })
       .addCase(logout.rejected, (state) => {
         state.isLoading = false;

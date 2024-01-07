@@ -1,11 +1,7 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import * as React from "react";
 
-import { useAuth } from "../../hooks/useAuth";
-
-export const User = () => {
-  const { email, displayName, avatarUrl } = useAuth();
-
+export const User = ({ email, displayName, avatarUrl }) => {
   return (
     <View style={styles.container}>
       <View style={styles.box}>

@@ -14,24 +14,64 @@ import NoFoto from "../../Img/Group 1.svg";
 import MapPin from "../../Img/map-pin.svg";
 import CommentsIcon from "../../Img/comentsIcon.svg";
 import LikesIcon from "../../Img/likesIcon.svg";
-import { usePosts } from "../../hooks/usePosts";
+import { updateDataInFirestore } from "../../firebaseOperations/firestoreApi";
+import { useDispatch } from "react-redux";
+import { updatePost } from "../../redux/posts/postsOperations";
 
-export const PictureCard = () => {
+import { useAuth } from "../../hooks/useAuth";
+
+export const PictureCard = ({ post }) => {
   const navigation = useNavigation();
-  const { posts } = usePosts();
+  const dispatch = useDispatch();
+  const [isLiked, setIsLiked] = React.useState(false);
+  const { uid } = useAuth();
+  const [colorLike, setColorLike] = React.useState();
+
+  React.useEffect(() => {
+    if (post.data.likes.includes(uid)) {
+      setIsLiked(true);
+      setColorLike("red");
+    } else {
+      setIsLiked(false);
+      setColorLike(null);
+    }
+  }, [post]);
 
   const goToComments = () => {
-    navigation.navigate("Comments");
+    navigation.navigate("Comments", { post: post, user: uid });
   };
   const goToMap = () => {
     navigation.navigate("Map");
   };
-  return posts.map((post) => {
+  const onPressLike = () => {
+    if (isLiked) {
+      let likesArray = post.data.likes.filter((item) => item !== uid);
+      dispatch(
+        updatePost({
+          postId: post.id,
+          update: { likes: likesArray },
+          owner: uid,
+        })
+      );
+    } else {
+      let likesArray = [...post.data.likes];
+      likesArray.push(uid);
+      dispatch(
+        updatePost({
+          postId: post.id,
+          update: { likes: likesArray },
+          owner: uid,
+        })
+      );
+    }
+  };
+
+  return (
     <View style={styles.container}>
       <View style={styles.box}>
         <View style={styles.fotobox}>
           <Image
-            source={{ uri: posts.data.photoURL }}
+            source={{ uri: post.data.photoURL }}
             style={styles.noFoto}
           ></Image>
         </View>
@@ -41,20 +81,23 @@ export const PictureCard = () => {
         <View style={styles.navigation}>
           <Pressable style={styles.commentsBox} onPress={goToComments}>
             <CommentsIcon style={styles.commentsIcon}></CommentsIcon>
-            <Text>8</Text>
+            <Text>{post.data.comments.length}</Text>
           </Pressable>
-          <View style={styles.commentsBox}>
-            <LikesIcon style={styles.commentsLikesIcon}></LikesIcon>
-            <Text>12</Text>
-          </View>
+          <Pressable style={styles.commentsBox} onPress={onPressLike}>
+            <LikesIcon
+              // style={styles.commentsLikesIcon}
+              style={{ stroke: colorLike }}
+            ></LikesIcon>
+            <Text>{post.data.likes.length}</Text>
+          </Pressable>
         </View>
         <Pressable style={styles.navBox}>
           <MapPin style={styles.mapPin} onPress={goToMap}></MapPin>
-          <Text>posts.data.locationArea</Text>
+          <Text>{post.data.locationArea}</Text>
         </Pressable>
       </View>
-    </View>;
-  });
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -86,10 +129,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     borderColor: "#E8E8E8",
+    overflow: "hidden",
   },
   noFoto: {
-    width: 60,
-    height: 60,
+    width: "100%",
+    height: "100%",
   },
   title: {
     fontSize: 16,

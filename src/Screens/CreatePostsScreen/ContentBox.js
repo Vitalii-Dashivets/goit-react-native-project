@@ -6,7 +6,7 @@ import { CameraBox } from "../Components/CameraBox";
 import { PostForm } from "../Components/PostForm";
 
 export const ContentBox = () => {
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState({ latitude: null, longitude: null });
   const [fotoLink, setFotoLink] = useState(null);
 
   const deletePhoto = () => {
@@ -43,8 +43,24 @@ export const ContentBox = () => {
         setFotoLink={setFotoLink}
       ></PostForm>
 
-      <Pressable style={[styles.buttonTrash]} onPress={deletePhoto}>
-        <Trash width={24} height={24} />
+      <Pressable
+        style={({ pressed }) => [
+          {
+            backgroundColor: fotoLink
+              ? pressed
+                ? "#BF6C00"
+                : "#FF6C00"
+              : "#F6F6F6",
+          },
+          styles.buttonTrash,
+        ]}
+        onPress={deletePhoto}
+      >
+        <Trash
+          width={24}
+          height={24}
+          style={{ stroke: fotoLink ? "#FFFFFF" : "#BDBDBD" }}
+        />
       </Pressable>
     </View>
   );
@@ -82,6 +98,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     borderColor: "#E8E8E8",
+    overflow: "hidden",
   },
   // noFoto: {
   //   width: 60,
@@ -100,7 +117,7 @@ const styles = StyleSheet.create({
     marginRight: "auto",
     marginBottom: 2,
     marginTop: "auto",
-    backgroundColor: "#F6F6F6",
+    //backgroundColor: "#F6F6F6",
     paddingVertical: 16,
     alignItems: "center",
     justifyContent: "center",

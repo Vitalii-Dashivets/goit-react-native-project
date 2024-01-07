@@ -1,16 +1,53 @@
 import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import * as React from "react";
 import ArrowUp from "../../Img/ArrowUp.svg";
+import { useDispatch } from "react-redux";
+import { updatePost } from "../../redux/posts/postsOperations";
 
-export const TabBarColor = () => {
+export const TabBarComment = ({ params }) => {
+  const dispatch = useDispatch();
+  const { post, user } = params;
+  const [comment, setComment] = React.useState("");
+
+  const addComment = () => {
+    let comments = [...post.data.comments];
+    const date = new Date();
+
+    function getMonthName(monthNumber) {
+      date.setMonth(monthNumber - 1);
+
+      return date.toLocaleString("en-US", { month: "long" });
+    }
+    const commentObj = {
+      owner: user,
+      comment: comment,
+      createdAt: `${date.getDate()} ${getMonthName(
+        date.getMonth() + 1
+      )} ${date.getFullYear()} | ${date.getHours()}:${`${date.getMinutes()}`.padStart(
+        2,
+        "0"
+      )}`,
+    };
+    comments.push(commentObj);
+
+    dispatch(
+      updatePost({
+        postId: post.id,
+        update: { comments: comments },
+        owner: user,
+      })
+    );
+  };
   return (
     <View style={styles.container}>
       <View style={styles.box}>
         <TextInput
           style={styles.input}
           placeholder="Коментувати..."
+          value={comment}
+          onChangeText={setComment}
         ></TextInput>
-        <Pressable style={styles.button}>
+        <Pressable style={styles.button} onPress={addComment}>
           <ArrowUp style={styles.arrowUp}></ArrowUp>
         </Pressable>
       </View>

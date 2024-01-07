@@ -9,6 +9,10 @@ import {
 import { auth } from "../../../config.js";
 import { user } from "../../firebaseOperations/firebaseOperations";
 import { uploadFileToStorage } from "../../firebaseOperations/storageAPI";
+import {
+  writeDataToFirestore,
+  getDataFromFirestore,
+} from "../../firebaseOperations/firestoreApi";
 
 export const register = createAsyncThunk(
   "auth/register",
@@ -18,27 +22,35 @@ export const register = createAsyncThunk(
         email: credentials.email,
         password: credentials.password,
       });
-      console.log("Register OK");
-      // const photoName = auth.currentUser.uid;
-      let id = auth.currentUser.uid;
-      console.log("newUser:", newUser);
+
       const imgRef = await uploadFileToStorage({
         collection: "avatars",
         name: newUser.uid,
         file: credentials.avatarUrl,
       });
-      console.log(imgRef);
-      console.log("A  F   T   E   R   U   P   L   O   A   D");
+
       await updateUserProfile({
         displayName: credentials.name,
         photoURL: imgRef,
       });
+      const res = await getDataFromFirestore("users");
       const payload = {
         displayName: auth.currentUser.displayName,
         email: auth.currentUser.email,
         photoURL: auth.currentUser.photoURL,
         uid: auth.currentUser.uid,
+        usersList: res,
       };
+
+      await writeDataToFirestore(
+        {
+          owner: payload.uid,
+          photoURL: payload.photoURL,
+          name: payload.displayName,
+          email: payload.email,
+        },
+        "users"
+      );
       return payload;
     } catch (error) {
       console.log(error.message);
@@ -54,12 +66,13 @@ export const login = createAsyncThunk(
         email: credentials.email,
         password: credentials.password,
       });
-
+      const res = await getDataFromFirestore("users");
       const payload = {
         displayName: auth.currentUser.displayName,
         email: auth.currentUser.email,
         photoURL: auth.currentUser.photoURL,
         uid: auth.currentUser.uid,
+        usersList: res,
       };
       return payload;
     } catch (error) {

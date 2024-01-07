@@ -19,17 +19,25 @@ import { useNavigation } from "@react-navigation/native";
 import BackImage from "../../Img/img1.png";
 import Logout from "../../Img/log-out.svg";
 import { AvatarBox } from "../Components/AvatarBox";
-import { auth } from "../../../config";
+import { usePosts } from "../../hooks/usePosts";
 import { useAuth } from "../../hooks/useAuth";
+import { useIsFocused } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import { getPosts } from "../../redux/posts/postsOperations";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
-  const { displayName, avatarUrl } = useAuth();
+  const { displayName, avatarUrl, uid } = useAuth();
+  const isFocused = useIsFocused();
+  const { posts } = usePosts();
+  const dispatch = useDispatch();
 
   const onLogout = () => {
     navigation.navigate("Login");
   };
-
+  React.useEffect(() => {
+    dispatch(getPosts(uid));
+  }, [isFocused]);
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -49,9 +57,9 @@ const ProfileScreen = () => {
             </View>
             <Text style={styles.title}>{displayName}</Text>
             <View style={styles.pictureContainer}>
-              <PictureCard></PictureCard>
-              <PictureCard></PictureCard>
-              <PictureCard></PictureCard>
+              {posts.map((item) => {
+                return <PictureCard key={item.id} post={item}></PictureCard>;
+              })}
             </View>
             <View height={100}></View>
           </View>

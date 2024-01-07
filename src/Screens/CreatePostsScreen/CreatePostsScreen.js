@@ -1,15 +1,4 @@
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableWithoutFeedback,
-  Keyboard,
-  KeyboardAvoidingView,
-  Platform,
-  SafeAreaView,
-} from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import React, { useState } from "react";
 
 import { ContentBox } from "./ContentBox";

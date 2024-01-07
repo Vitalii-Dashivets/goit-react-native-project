@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { addPost } from "./postsOperations";
+import { addPost, getPosts, updatePost } from "./postsOperations";
 
 const initialState = {
   items: [],
@@ -19,6 +19,26 @@ const postsSlice = createSlice({
         state.items = action.payload;
       })
       .addCase(addPost.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(getPosts.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getPosts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.items = action.payload;
+      })
+      .addCase(getPosts.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(updatePost.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updatePost.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.items = action.payload;
+      })
+      .addCase(updatePost.rejected, (state) => {
         state.isLoading = false;
       });
   },

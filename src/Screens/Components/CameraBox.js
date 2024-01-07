@@ -18,6 +18,7 @@ export const CameraBox = ({ setFotoLink, setLocation }) => {
     })();
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
+
       if (status !== "granted") {
         console.log("Permission to access location was denied");
       }
@@ -27,7 +28,8 @@ export const CameraBox = ({ setFotoLink, setLocation }) => {
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
       };
-      console.log(coords);
+
+      // console.log(coords);
       setLocation(coords);
     })();
   }, []);
