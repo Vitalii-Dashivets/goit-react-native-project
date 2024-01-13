@@ -13,26 +13,33 @@ import { refreshUser } from "../../redux/auth/authOperations";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../../config";
 import { useDispatch } from "react-redux";
+import { useAuth } from "../../hooks/useAuth";
+import { useIsFocused } from "@react-navigation/native";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const { isLoggedIn } = useAuth();
+  const isFocused = useIsFocused();
 
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-      return;
-    }
-    const payload = {
-      displayName: user.displayName,
-      email: user.email,
-      photoURL: user.photoURL,
-      uid: user.uid,
-    };
+  React.useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        return;
+      }
 
-    dispatch(refreshUser(payload));
-
-    navigation.navigate("Home");
-  });
+      const payload = {
+        displayName: user.displayName,
+        email: user.email,
+        photoURL: user.photoURL,
+        uid: user.uid,
+      };
+      dispatch(refreshUser(payload));
+      if (isLoggedIn) {
+        navigation.navigate("Home");
+      }
+    });
+  }, [isFocused, isLoggedIn]);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

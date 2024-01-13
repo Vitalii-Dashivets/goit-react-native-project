@@ -16,8 +16,7 @@ import CommentsIcon from "../../Img/comentsIcon.svg";
 import LikesIcon from "../../Img/likesIcon.svg";
 import { updateDataInFirestore } from "../../firebaseOperations/firestoreApi";
 import { useDispatch } from "react-redux";
-import { updatePost } from "../../redux/posts/postsOperations";
-
+import { getPosts, updatePost } from "../../redux/posts/postsOperations";
 import { useAuth } from "../../hooks/useAuth";
 
 export const PictureCard = ({ post }) => {

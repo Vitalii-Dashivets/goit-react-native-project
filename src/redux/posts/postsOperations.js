@@ -4,6 +4,7 @@ import {
   getDataFromFirestore,
   getDataByOwnerFromFirestore,
   updateDataInFirestore,
+  getCommentsByPostId,
 } from "../../firebaseOperations/firestoreApi";
 import { uploadFileToStorage } from "../../firebaseOperations/storageAPI";
 
@@ -16,7 +17,8 @@ export const addPost = createAsyncThunk(
         name: data.title,
         file: data.file,
       });
-
+      //let data = Date.now();
+      //console.log("TIME", data);
       await writeDataToFirestore(
         {
           owner: data.owner,
@@ -26,6 +28,7 @@ export const addPost = createAsyncThunk(
           locationArea: data.locationArea,
           likes: [],
           comments: [],
+          timeStamp: Date.now(),
         },
         "posts"
       );
@@ -56,6 +59,31 @@ export const updatePost = createAsyncThunk(
       await updateDataInFirestore("posts", data.postId, data.update);
       const posts = await getDataByOwnerFromFirestore("posts", data.owner);
       return posts;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+export const clearPostsArray = createAsyncThunk(
+  "posts/clearPostsArray",
+  async (data, thunkAPI) => {
+    try {
+      //await updateDataInFirestore("posts", data.postId, data.update);
+      //const posts = await getDataByOwnerFromFirestore("posts", data.owner);
+
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+export const getComments = createAsyncThunk(
+  "posts/getComments",
+  async (postId, thunkAPI) => {
+    try {
+      const comments = await getCommentsByPostId(postId);
+      //console.log(comments);
+      return comments.reverse();
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
