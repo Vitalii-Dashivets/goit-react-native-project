@@ -1,11 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { register, login, logout, refreshUser } from "./authOperations";
+import {
+  register,
+  login,
+  logout,
+  refreshUser,
+  updateUserAvatar,
+} from "./authOperations";
+
 const initialState = {
   user: {
     displayName: "",
     email: "",
     uid: "",
-    avatarUrl: "https://reactjs.org/logo-og.png",
+    avatarUrl:
+      "https://firebasestorage.googleapis.com/v0/b/reactnative-goit-e3765.appspot.com/o/avatars%2Fno_photo.png?alt=media&token=62e68122-1639-4ca4-92c1-58600113d90d",
   },
   token: "",
   isLoggedIn: false,
@@ -59,7 +67,8 @@ const authSlice = createSlice({
         state.user.displayName = "";
         state.user.uid = "";
         state.token = "";
-        state.user.avatarUrl = "https://reactjs.org/logo-og.png";
+        state.user.avatarUrl =
+          "https://firebasestorage.googleapis.com/v0/b/reactnative-goit-e3765.appspot.com/o/avatars%2Fno_photo.png?alt=media&token=62e68122-1639-4ca4-92c1-58600113d90d";
         state.isLoggedIn = false;
         state.isLoading = false;
         state.usersList = [];
@@ -78,8 +87,22 @@ const authSlice = createSlice({
         // state.token = action.payload.stsTokenManager.accessToken;
         state.isLoggedIn = true;
         state.isLoading = false;
+        state.usersList = action.payload.usersList;
       })
       .addCase(refreshUser.rejected, (state) => {
+        state.isLoading = false;
+      })
+      .addCase(updateUserAvatar.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUserAvatar.fulfilled, (state, action) => {
+        state.user.avatarUrl = action.payload.photoURL;
+        // state.token = action.payload.stsTokenManager.accessToken;
+        state.isLoggedIn = true;
+        state.isLoading = false;
+        state.usersList = action.payload.usersList;
+      })
+      .addCase(updateUserAvatar.rejected, (state) => {
         state.isLoading = false;
       });
   },

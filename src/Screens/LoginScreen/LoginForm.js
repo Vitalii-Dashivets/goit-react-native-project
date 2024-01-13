@@ -10,14 +10,12 @@ import * as React from "react";
 import { login } from "../../redux/auth/authOperations";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../../config";
-
 export const LoginForm = () => {
   const [email, setEmail] = React.useState(null);
   const [password, setPassword] = React.useState(null);
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  //const { isLoggedIn } = useAuth();
 
   const onLogin = () => {
     if (!email || !password) {
@@ -25,9 +23,10 @@ export const LoginForm = () => {
     }
     try {
       dispatch(login({ email: email, password: password }));
-      navigation.navigate("Home");
-      setEmail("");
-      setPassword("");
+
+      //navigation.navigate("Home");
+      //setEmail("");
+      //setPassword("");
     } catch (e) {}
   };
 

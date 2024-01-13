@@ -6,11 +6,15 @@ import { useNavigation } from "@react-navigation/native";
 import { logout } from "../../redux/auth/authOperations";
 import { useDispatch } from "react-redux";
 import { useAuth } from "../../hooks/useAuth";
+import { useIsFocused } from "@react-navigation/native";
+import { clearPostsArray } from "../../redux/posts/postsOperations";
 
 const PostsScreen = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { usersList } = useAuth();
+  const isFocused = useIsFocused();
+  const { isLoggedIn } = useAuth();
 
   React.useEffect(() => {
     navigation.setOptions({
@@ -18,13 +22,23 @@ const PostsScreen = () => {
         <Logout
           onPress={() => {
             dispatch(logout());
-
-            navigation.navigate("Login");
           }}
         />
       ),
     });
   }, [navigation]);
+
+  React.useEffect(() => {
+    if (!isLoggedIn) {
+      navigation.navigate("Login");
+    } else {
+      return;
+    }
+  }, [isLoggedIn]);
+
+  React.useEffect(() => {
+    dispatch(clearPostsArray([]));
+  }, [isFocused]);
 
   return (
     <ScrollView style={styles.container}>

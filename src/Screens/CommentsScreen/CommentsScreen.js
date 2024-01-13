@@ -1,23 +1,38 @@
 import { Pressable, StyleSheet, Text, View, ScrollView } from "react-native";
 import * as React from "react";
-
-// import { Header } from "./Header";
+import { useDispatch } from "react-redux";
+import { useIsFocused } from "@react-navigation/native";
 import { TabBarComment } from "../Components/TabBarComent";
 import { ContentBox } from "./ContentBox";
 import { Comments } from "./Comments";
 import { useRoute } from "@react-navigation/native";
+import { getPosts } from "../../redux/posts/postsOperations";
+import { useAuth } from "../../hooks/useAuth";
+import { getComments } from "../../redux/posts/postsOperations";
+import { usePosts } from "../../hooks/usePosts";
 
 const CommentsScreen = () => {
+  const { uid } = useAuth();
+  const dispatch = useDispatch();
   const { params } = useRoute();
-  //console.log(params);
+  const isFocused = useIsFocused();
+  const [needToRend, setNeedToRend] = React.useState(false);
+  const { comments } = usePosts();
+
+  React.useEffect(() => {
+    dispatch(getComments(params.post.id));
+  }, [isFocused, needToRend]);
+
   return (
     <View style={styles.container}>
       {/* <Header style={styles.header}></Header> */}
       <ContentBox post={params.post}></ContentBox>
-
-      <Comments params={params}></Comments>
-
-      <TabBarComment style={styles.footer} params={params}></TabBarComment>
+      {comments.length > 0 && <Comments comments={comments}></Comments>}
+      <TabBarComment
+        style={styles.footer}
+        params={params}
+        setNeedToRend={setNeedToRend}
+      ></TabBarComment>
     </View>
   );
 };

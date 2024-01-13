@@ -12,6 +12,9 @@ import { uploadFileToStorage } from "../../firebaseOperations/storageAPI";
 import {
   writeDataToFirestore,
   getDataFromFirestore,
+  updateDataInFirestore,
+  getDataByOwnerFromFirestore,
+  getUserFromFirestore,
 } from "../../firebaseOperations/firestoreApi";
 
 export const register = createAsyncThunk(
@@ -48,12 +51,13 @@ export const register = createAsyncThunk(
           photoURL: payload.photoURL,
           name: payload.displayName,
           email: payload.email,
+          timeStamp: Date.now(),
         },
         "users"
       );
       return payload;
     } catch (error) {
-      console.log(error.message);
+      alert(error);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -75,8 +79,9 @@ export const login = createAsyncThunk(
         usersList: res,
       };
       return payload;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+    } catch (err) {
+      alert(err);
+      return thunkAPI.rejectWithValue(err.message);
     }
   }
 );
@@ -87,6 +92,7 @@ export const logout = createAsyncThunk(
       await logOutUser();
       return;
     } catch (error) {
+      alert(error);
       return thunkAPI.rejectWithValue(error.message);
     }
   }
@@ -99,8 +105,44 @@ export const refreshUser = createAsyncThunk(
       // const promise = new Promise((resolve, reject) => {
       //   resolve(credentials);
       // });
+      const res = await getDataFromFirestore("users");
+      credentials.usersList = res;
       return credentials;
     } catch (error) {
+      alert(error);
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateUserAvatar = createAsyncThunk(
+  "auth/updateUserAvatar",
+  async (credentials, thunkAPI) => {
+    try {
+      const imgRef = await uploadFileToStorage({
+        collection: "avatars",
+        name: credentials.uid,
+        file: credentials.avatar,
+      });
+
+      await updateUserProfile({
+        photoURL: imgRef,
+      });
+
+      const userProfile = await getUserFromFirestore("users", credentials.uid);
+
+      await updateDataInFirestore("users", userProfile[0].id, {
+        photoURL: auth.currentUser.photoURL,
+      });
+      const res = await getDataFromFirestore("users");
+      const payload = {
+        photoURL: auth.currentUser.photoURL,
+        usersList: res,
+      };
+
+      return payload;
+    } catch (error) {
+      alert(error);
       return thunkAPI.rejectWithValue(error.message);
     }
   }

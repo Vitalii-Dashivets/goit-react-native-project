@@ -2,12 +2,14 @@ import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import * as React from "react";
 import ArrowUp from "../../Img/ArrowUp.svg";
 import { useDispatch } from "react-redux";
-import { updatePost } from "../../redux/posts/postsOperations";
+import { updatePost, getPosts } from "../../redux/posts/postsOperations";
+import { useNavigation } from "@react-navigation/native";
 
-export const TabBarComment = ({ params }) => {
+export const TabBarComment = ({ params, setNeedToRend }) => {
   const dispatch = useDispatch();
   const { post, user } = params;
   const [comment, setComment] = React.useState("");
+  const navigation = useNavigation();
 
   const addComment = () => {
     let comments = [...post.data.comments];
@@ -37,7 +39,10 @@ export const TabBarComment = ({ params }) => {
         owner: user,
       })
     );
+    setComment("");
+    setNeedToRend((prev) => !prev);
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.box}>

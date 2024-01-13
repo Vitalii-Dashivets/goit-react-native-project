@@ -48,8 +48,8 @@ export const loginDB = async ({ email, password }) => {
     await signInWithEmailAndPassword(auth, email, password);
 
     return;
-  } catch (error) {
-    console.log(error.message);
+  } catch (err) {
+    console.log(err.message);
     throw new Error(err.message);
   }
 };
@@ -63,7 +63,7 @@ export const updateUserProfile = async (update) => {
     try {
       await updateProfile(user, update);
       return;
-    } catch (error) {
+    } catch (err) {
       throw new Error(err.message);
     }
   }

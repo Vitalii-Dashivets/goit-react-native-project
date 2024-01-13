@@ -15,44 +15,49 @@ import { OneComment } from "./OneComment";
 import { MyComment } from "./MyComment";
 import { useAuth } from "../../hooks/useAuth";
 import uuid from "react-native-uuid";
+import { useDispatch } from "react-redux";
+import { useIsFocused } from "@react-navigation/native";
+import { getComments } from "../../redux/posts/postsOperations";
+import { usePosts } from "../../hooks/usePosts";
 
-export const Comments = ({ params }) => {
-  //console.log(params);
+export const Comments = ({ comments }) => {
+  const dispatch = useDispatch();
   const { uid } = useAuth();
-  const comments = [...params.post.data.comments];
+  const isFocused = useIsFocused();
   const { usersList } = useAuth();
 
   return (
     <ScrollView style={styles.scrollContainer}>
       <View style={styles.container}>
-        {comments.map((item) => {
-          let id = uuid.v4();
-          if (item.owner === uid) {
-            const currentUser = usersList.find(
-              (current) => current.data.owner === uid
-            );
-
-            return (
-              <MyComment
-                key={id}
-                comment={item}
-                currentUser={currentUser}
-              ></MyComment>
-            );
-          } else {
-            const currentUser = usersList.find(
-              (current) => current.data.owner === item.owner
-            );
-
-            return (
-              <OneComment
-                key={id}
-                comment={item}
-                currentUser={currentUser}
-              ></OneComment>
-            );
-          }
-        })}
+        {comments.length > 0 &&
+          comments.map((item) => {
+            let id = uuid.v4();
+            if (item.owner === uid) {
+              let index = usersList.findIndex((current) => {
+                return current.data.owner === uid;
+              });
+              let currentUser = usersList[index];
+              return (
+                <MyComment
+                  key={id}
+                  comment={item}
+                  currentUser={currentUser}
+                ></MyComment>
+              );
+            } else {
+              let index = usersList.findIndex((current) => {
+                return current.data.owner === item.owner;
+              });
+              let currentUser = usersList[index];
+              return (
+                <OneComment
+                  key={id}
+                  comment={item}
+                  currentUser={currentUser}
+                ></OneComment>
+              );
+            }
+          })}
         {/* <OneComment></OneComment>
       <MyComment></MyComment> */}
       </View>

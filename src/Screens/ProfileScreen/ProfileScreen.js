@@ -24,6 +24,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { useIsFocused } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { getPosts } from "../../redux/posts/postsOperations";
+import { updateUserAvatar, logout } from "../../redux/auth/authOperations";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -31,13 +32,27 @@ const ProfileScreen = () => {
   const isFocused = useIsFocused();
   const { posts } = usePosts();
   const dispatch = useDispatch();
+  const [avatarURL, setAvatarURL] = React.useState(avatarUrl);
+  const { isLoggedIn } = useAuth();
 
   const onLogout = () => {
-    navigation.navigate("Login");
+    dispatch(logout());
+    //navigation.navigate("Login");
   };
+  React.useEffect(() => {
+    if (!isLoggedIn) {
+      navigation.navigate("Login");
+    } else {
+      return;
+    }
+  }, [isLoggedIn]);
+
   React.useEffect(() => {
     dispatch(getPosts(uid));
   }, [isFocused]);
+  React.useEffect(() => {
+    dispatch(updateUserAvatar({ uid: uid, avatar: avatarURL }));
+  }, [avatarURL]);
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -48,7 +63,7 @@ const ProfileScreen = () => {
         <ScrollView contentContainerStyle={styles.containerScroll}>
           <View style={styles.box} removeClippedSubviews={false}>
             <View style={styles.imageContainer}>
-              <AvatarBox avatarUrl={avatarUrl} />
+              <AvatarBox avatarUrl={avatarURL} setAvatarUrl={setAvatarURL} />
             </View>
             <View style={styles.logoutContainer}>
               <Pressable onPress={onLogout}>
